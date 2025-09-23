@@ -541,6 +541,61 @@ img {
   padding: 2rem;
 }
 
+.student-info {
+  background: transparent;
+  color: var(--foreground);
+  padding: 1.5rem 2.5rem;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin: 2rem auto;
+  max-width: 500px;
+  border: 2px solid var(--primary);
+  transition: all 0.3s ease;
+  position: relative;
+  letter-spacing: 0.3px;
+}
+
+.student-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--primary);
+  opacity: 0;
+  border-radius: 10px;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.student-info:hover::before {
+  opacity: 0.05;
+}
+
+.student-info:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-hover);
+  box-shadow: 0 8px 25px rgba(0, 112, 243, 0.15);
+}
+
+.student-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  color: var(--primary);
+}
+
+.student-nuid {
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+  color: var(--foreground);
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

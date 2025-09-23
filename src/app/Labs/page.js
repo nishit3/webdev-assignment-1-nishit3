@@ -4,7 +4,10 @@ export default function Labs() {
   return (
     <div id="wd-labs" className="page-content">
       <h1>Labs</h1>
-      <h2>Nishit Chaudhary NUID: 002565987</h2>
+      <div className="student-info">
+        <div className="student-name">Nishit Chaudhary</div>
+        <div className="student-nuid">NUID: 002565987</div>
+      </div>
       <ul>
         <li>
           <Link href="/Labs/Lab1" id="wd-lab1-link">
