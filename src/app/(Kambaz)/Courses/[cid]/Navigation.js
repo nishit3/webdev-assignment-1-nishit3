@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function CourseNavigation({ cid }) {
   return (
-    <div id="wd-courses-navigation">
+    <nav id="wd-courses-navigation">
       <Link href={`/Courses/${cid}/Home`} id="wd-course-home-link">
         Home
       </Link>
@@ -38,6 +38,6 @@ export default function CourseNavigation({ cid }) {
         People
       </Link>
       <br />
-    </div>
+    </nav>
   );
 }

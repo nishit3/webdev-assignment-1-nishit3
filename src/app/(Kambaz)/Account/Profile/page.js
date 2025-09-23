@@ -25,9 +25,13 @@ export default function Profile() {
         id="wd-lastname"
       />
       <br />
-      <input defaultValue="2000-01-01" type="date" id="wd-dob" />
+      <input defaultValue="2003-09-03" type="date" id="wd-dob" />
       <br />
-      <input defaultValue="alice@wonderland" type="email" id="wd-email" />
+      <input
+        defaultValue="nishitchaudhary@northeastern.edu"
+        type="email"
+        id="wd-email"
+      />
       <br />
       <select defaultValue="STUDENT" id="wd-role">
         <option value="USER">User</option>

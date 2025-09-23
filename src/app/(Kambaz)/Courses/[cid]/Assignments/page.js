@@ -3,7 +3,7 @@ import Link from "next/link";
 export default async function Assignments({ params }) {
   const { cid } = await params;
   return (
-    <div id="wd-assignments">
+    <div id="wd-assignments" className="page-content">
       <input placeholder="Search for Assignments" id="wd-search-assignment" />
       <button id="wd-add-assignment-group">+ Group</button>
       <button id="wd-add-assignment">+ Assignment</button>

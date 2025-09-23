@@ -2,7 +2,7 @@
 
 export default function Lab1() {
   return (
-    <div id="wd-lab1">
+    <div id="wd-lab1" className="page-content">
       <h2>Lab 1</h2>
       <h3>HTML Examples</h3>
       <div id="wd-h-tag">
@@ -184,7 +184,7 @@ export default function Lab1() {
           alt="Tesla Bot"
         />
       </div>
-      <div id="wd-forms">
+      <div id="wd-forms" className="form-section">
         <h4>Form Elements</h4>
         <form id="wd-text-fields">
           <h5>Text Fields</h5>
@@ -242,35 +242,49 @@ export default function Lab1() {
           <br />
           <h5 id="wd-radio-buttons">Radio buttons</h5>
           <label>Favorite movie genre:</label>
-          <br />
-          <input type="radio" name="radio-genre" id="wd-radio-comedy" />
-          <label htmlFor="wd-radio-comedy">Comedy</label>
-          <br />
-          <input type="radio" name="radio-genre" id="wd-radio-drama" />
-          <label htmlFor="wd-radio-drama">Drama</label>
-          <br />
-          <input type="radio" name="radio-genre" id="wd-radio-scifi" />
-          <label htmlFor="wd-radio-scifi">Science Fiction</label>
-          <br />
-          <input type="radio" name="radio-genre" id="wd-radio-fantasy" />
-          <label htmlFor="wd-radio-fantasy">Fantasy</label>
-          <br />
+          <div className="radio-group">
+            <div className="radio-item">
+              <input type="radio" name="radio-genre" id="wd-radio-comedy" />
+              <label htmlFor="wd-radio-comedy">Comedy</label>
+            </div>
+            <div className="radio-item">
+              <input type="radio" name="radio-genre" id="wd-radio-drama" />
+              <label htmlFor="wd-radio-drama">Drama</label>
+            </div>
+            <div className="radio-item">
+              <input type="radio" name="radio-genre" id="wd-radio-scifi" />
+              <label htmlFor="wd-radio-scifi">Science Fiction</label>
+            </div>
+            <div className="radio-item">
+              <input type="radio" name="radio-genre" id="wd-radio-fantasy" />
+              <label htmlFor="wd-radio-fantasy">Fantasy</label>
+            </div>
+          </div>
           <br />
           <h5 id="wd-checkboxes">Checkboxes</h5>
           <label>Favorite movie genre:</label>
-          <br />
-          <input type="checkbox" name="check-genre" id="wd-chkbox-comedy" />
-          <label htmlFor="wd-chkbox-comedy">Comedy</label>
-          <br />
-          <input type="checkbox" name="check-genre" id="wd-chkbox-drama" />
-          <label htmlFor="wd-chkbox-drama">Drama</label>
-          <br />
-          <input type="checkbox" name="check-genre" id="wd-chkbox-scifi" />
-          <label htmlFor="wd-chkbox-scifi">Science Fiction</label>
-          <br />
-          <input type="checkbox" name="check-genre" id="wd-chkbox-fantasy" />
-          <label htmlFor="wd-chkbox-fantasy">Fantasy</label>
-          <br />
+          <div className="checkbox-group">
+            <div className="checkbox-item">
+              <input type="checkbox" name="check-genre" id="wd-chkbox-comedy" />
+              <label htmlFor="wd-chkbox-comedy">Comedy</label>
+            </div>
+            <div className="checkbox-item">
+              <input type="checkbox" name="check-genre" id="wd-chkbox-drama" />
+              <label htmlFor="wd-chkbox-drama">Drama</label>
+            </div>
+            <div className="checkbox-item">
+              <input type="checkbox" name="check-genre" id="wd-chkbox-scifi" />
+              <label htmlFor="wd-chkbox-scifi">Science Fiction</label>
+            </div>
+            <div className="checkbox-item">
+              <input
+                type="checkbox"
+                name="check-genre"
+                id="wd-chkbox-fantasy"
+              />
+              <label htmlFor="wd-chkbox-fantasy">Fantasy</label>
+            </div>
+          </div>
           <br />
           <h4 id="wd-dropdowns">Dropdowns</h4>
           <h5>Select one</h5>
@@ -299,11 +313,62 @@ export default function Lab1() {
           </select>
           <br />
           <br />
+          <h4>Custom Styled Form Controls</h4>
+          <h5>Custom Radio Buttons</h5>
+          <label>Preferred framework:</label>
+          <div className="radio-group">
+            <div className="radio-item">
+              <div className="custom-radio">
+                <input type="radio" name="framework" id="react" />
+                <span className="checkmark"></span>
+              </div>
+              <label htmlFor="react">React</label>
+            </div>
+            <div className="radio-item">
+              <div className="custom-radio">
+                <input type="radio" name="framework" id="vue" />
+                <span className="checkmark"></span>
+              </div>
+              <label htmlFor="vue">Vue.js</label>
+            </div>
+            <div className="radio-item">
+              <div className="custom-radio">
+                <input type="radio" name="framework" id="angular" />
+                <span className="checkmark"></span>
+              </div>
+              <label htmlFor="angular">Angular</label>
+            </div>
+          </div>
+          <h5>Custom Checkboxes</h5>
+          <label>Skills:</label>
+          <div className="checkbox-group">
+            <div className="checkbox-item">
+              <div className="custom-checkbox">
+                <input type="checkbox" name="skills" id="html-skill" />
+                <span className="checkmark"></span>
+              </div>
+              <label htmlFor="html-skill">HTML/CSS</label>
+            </div>
+            <div className="checkbox-item">
+              <div className="custom-checkbox">
+                <input type="checkbox" name="skills" id="js-skill" />
+                <span className="checkmark"></span>
+              </div>
+              <label htmlFor="js-skill">JavaScript</label>
+            </div>
+            <div className="checkbox-item">
+              <div className="custom-checkbox">
+                <input type="checkbox" name="skills" id="react-skill" />
+                <span className="checkmark"></span>
+              </div>
+              <label htmlFor="react-skill">React</label>
+            </div>
+          </div>
           <h4>Other HTML field types</h4>
           <label htmlFor="wd-text-fields-email"> Email: </label>
           <input
             type="email"
-            placeholder="jdoe@somewhere.com"
+            placeholder="nishit@northeastern.edu"
             id="wd-text-fields-email"
           />
           <br />
@@ -327,7 +392,7 @@ export default function Lab1() {
           <label htmlFor="wd-text-fields-dob"> Date of birth: </label>
           <input
             type="date"
-            defaultValue="2000-01-21"
+            defaultValue="2003-09-03"
             id="wd-text-fields-dob"
           />
           <br />

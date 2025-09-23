@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function KambazNavigation() {
   return (
-    <div id="wd-kambaz-navigation">
+    <nav id="wd-kambaz-navigation">
       <a
         href="https://www.northeastern.edu/"
         id="wd-neu-link"
@@ -20,7 +20,7 @@ export default function KambazNavigation() {
         Dashboard
       </Link>
       <br />
-      <Link href="/Dashboard" id="wd-course-link">
+      <Link href="/Courses" id="wd-course-link">
         Courses
       </Link>
       <br />
@@ -36,6 +36,6 @@ export default function KambazNavigation() {
         Labs
       </Link>
       <br />
-    </div>
+    </nav>
   );
 }
