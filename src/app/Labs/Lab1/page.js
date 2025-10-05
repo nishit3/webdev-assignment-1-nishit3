@@ -1,7 +1,5 @@
 "use client";
 
-import "./styles.css";
-
 export default function Lab1() {
   return (
     <div id="wd-lab1" className="lab1-container">
