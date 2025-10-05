@@ -269,7 +269,6 @@ The Kambas application should include a link to navigate back to the landing pag
                           id="wd-due-date"
                           defaultValue="2024-05-13T23:59"
                         />
-                        <InputGroup.Text>𝄜</InputGroup.Text>
                       </InputGroup>
                     </div>
                   </Col>
@@ -288,7 +287,6 @@ The Kambas application should include a link to navigate back to the landing pag
                           id="wd-available-from"
                           defaultValue="2024-05-06T12:00"
                         />
-                        <InputGroup.Text>𝄜</InputGroup.Text>
                       </InputGroup>
                     </div>
                   </Col>
@@ -307,7 +305,6 @@ The Kambas application should include a link to navigate back to the landing pag
                           id="wd-available-until"
                           defaultValue="2024-05-20T23:59"
                         />
-                        <InputGroup.Text>𝄜</InputGroup.Text>
                       </InputGroup>
                     </div>
                   </Col>
