@@ -1,0 +1,219 @@
+/* Lab 1 Styles */
+.lab1-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Headings */
+.lab1-container h2 {
+  color: #2c3e50;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 10px;
+  margin-bottom: 25px;
+  font-size: 2.2em;
+}
+
+.lab1-container h3 {
+  color: #34495e;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+}
+
+.lab1-container h4 {
+  color: #2c3e50;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  font-size: 1.4em;
+  border-left: 4px solid #3498db;
+  padding-left: 15px;
+}
+
+.lab1-container h5 {
+  color: #34495e;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+/* Paragraphs */
+.lab1-container p {
+  margin-bottom: 15px;
+  text-align: justify;
+  padding: 0 10px;
+}
+
+/* Sections */
+.lab1-section {
+  background-color: #f8f9fa;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+/* Lists */
+.lab1-container ol,
+.lab1-container ul {
+  margin: 15px 0;
+  padding-left: 30px;
+}
+
+.lab1-container li {
+  margin-bottom: 8px;
+  text-align: justify;
+}
+
+/* Tables */
+.lab1-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lab1-container th,
+.lab1-container td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.lab1-container th {
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+}
+
+.lab1-container tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.lab1-container tr:hover {
+  background-color: #e3f2fd;
+}
+
+/* Forms */
+.lab1-container form {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.lab1-container label {
+  display: inline-block;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.lab1-container input,
+.lab1-container textarea,
+.lab1-container select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.lab1-container input:focus,
+.lab1-container textarea:focus,
+.lab1-container select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+/* Checkboxes and Radio buttons */
+.checkbox-container,
+.radio-container {
+  margin: 15px 0;
+}
+
+.checkbox-item,
+.radio-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.custom-checkbox,
+.custom-radio {
+  margin-right: 10px;
+}
+
+/* Links */
+.lab1-container a {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.lab1-container a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+/* Code and preformatted text */
+.lab1-container pre,
+.lab1-container code {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: "Courier New", monospace;
+  border: 1px solid #ddd;
+}
+
+/* Images */
+.lab1-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .lab1-container {
+    padding: 15px;
+    margin: 0 10px;
+  }
+
+  .lab1-container h2 {
+    font-size: 1.8em;
+  }
+
+  .lab1-container h3 {
+    font-size: 1.5em;
+  }
+
+  .lab1-container h4 {
+    font-size: 1.3em;
+  }
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}

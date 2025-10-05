@@ -1,129 +1,463 @@
 import Link from "next/link";
+import {
+  Card,
+  CardImg,
+  Col,
+  Row,
+  CardBody,
+  CardTitle,
+  CardText,
+  Button,
+} from "react-bootstrap";
 
 export default function Dashboard() {
   return (
-    <div id="wd-dashboard" className="page-content">
+    <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
       <h2 id="wd-dashboard-published">Published Courses (7)</h2> <hr />
-      <div id="wd-dashboard-courses" className="dashboard-courses">
-        <div className="wd-dashboard-course course-card">
-          <Link href="/Courses/1234" className="wd-dashboard-course-link">
-            <img
-              src="/images/reactjs.png"
-              alt="React JS Course"
-              className="course-image"
-            />
-            <div className="course-content">
-              <h5> CS1234 React JS </h5>
-              <p className="wd-dashboard-course-title">
-                Full Stack software developer
-              </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
+      <div id="wd-dashboard-courses">
+        <Row xs={1} md={5} className="g-4">
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card className="h-100">
+              <Link
+                href="/Courses/1234/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <div
+                  style={{
+                    backgroundColor: "#4a90a4",
+                    height: "120px",
+                    position: "relative",
+                    borderTopLeftRadius: "0.375rem",
+                    borderTopRightRadius: "0.375rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src="/images/reactjs.png"
+                    alt="React JS"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "8px",
+                      right: "8px",
+                      color: "white",
+                      fontSize: "18px",
+                      zIndex: 10,
+                      textShadow: "0 0 3px rgba(0,0,0,0.8)",
+                    }}
+                  >
+                    ⋮
+                  </div>
+                </div>
+                <CardBody className="p-3">
+                  <CardTitle
+                    className="wd-dashboard-course-title mb-1"
+                    style={{ fontSize: "16px", fontWeight: "600" }}
+                  >
+                    CS4550 12631 Web Development...
+                  </CardTitle>
+                  <CardText
+                    className="text-muted mb-1"
+                    style={{ fontSize: "14px" }}
+                  >
+                    CS4550.12631.202410
+                  </CardText>
+                  <CardText className="text-muted" style={{ fontSize: "12px" }}>
+                    202410_1 Fall 2023 Semester Full Term
+                  </CardText>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
 
-        <div className="wd-dashboard-course course-card">
-          <Link href="/Courses/2345" className="wd-dashboard-course-link">
-            <img
-              src="/images/nodejs.jpg"
-              alt="Node.js Course"
-              className="course-image"
-            />
-            <div className="course-content">
-              <h5> CS2345 Node.js </h5>
-              <p className="wd-dashboard-course-title">
-                Backend Development with Node.js
-              </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card className="h-100">
+              <Link
+                href="/Courses/1234/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <div
+                  style={{
+                    backgroundColor: "#4a90a4",
+                    height: "120px",
+                    position: "relative",
+                    borderTopLeftRadius: "0.375rem",
+                    borderTopRightRadius: "0.375rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src="/images/nodejs.jpg"
+                    alt="Node.js"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "8px",
+                      right: "8px",
+                      color: "white",
+                      fontSize: "18px",
+                      zIndex: 10,
+                      textShadow: "0 0 3px rgba(0,0,0,0.8)",
+                    }}
+                  >
+                    ⋮
+                  </div>
+                </div>
+                <CardBody className="p-3">
+                  <CardTitle
+                    className="wd-dashboard-course-title mb-1"
+                    style={{ fontSize: "16px", fontWeight: "600" }}
+                  >
+                    CS1555 Node.js Development
+                  </CardTitle>
+                  <CardText
+                    className="text-muted mb-1"
+                    style={{ fontSize: "14px" }}
+                  >
+                    CS1555.12345.202410
+                  </CardText>
+                  <CardText className="text-muted" style={{ fontSize: "12px" }}>
+                    202410_1 Fall 2023 Semester Full Term
+                  </CardText>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
 
-        <div className="wd-dashboard-course course-card">
-          <Link href="/Courses/3456" className="wd-dashboard-course-link">
-            <img
-              src="/images/mongodb.png"
-              alt="MongoDB Course"
-              className="course-image"
-            />
-            <div className="course-content">
-              <h5> CS3456 MongoDB </h5>
-              <p className="wd-dashboard-course-title">
-                Database Management with MongoDB
-              </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card className="h-100">
+              <Link
+                href="/Courses/1234/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <div
+                  style={{
+                    backgroundColor: "#4a90a4",
+                    height: "120px",
+                    position: "relative",
+                    borderTopLeftRadius: "0.375rem",
+                    borderTopRightRadius: "0.375rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src="/images/java.png"
+                    alt="Java"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "8px",
+                      right: "8px",
+                      color: "white",
+                      fontSize: "18px",
+                      zIndex: 10,
+                      textShadow: "0 0 3px rgba(0,0,0,0.8)",
+                    }}
+                  >
+                    ⋮
+                  </div>
+                </div>
+                <CardBody className="p-3">
+                  <CardTitle
+                    className="wd-dashboard-course-title mb-1"
+                    style={{ fontSize: "16px", fontWeight: "600" }}
+                  >
+                    CS1390 Java Programming
+                  </CardTitle>
+                  <CardText
+                    className="text-muted mb-1"
+                    style={{ fontSize: "14px" }}
+                  >
+                    CS1390.54321.202410
+                  </CardText>
+                  <CardText className="text-muted" style={{ fontSize: "12px" }}>
+                    202410_1 Fall 2023 Semester Full Term
+                  </CardText>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
 
-        <div className="wd-dashboard-course course-card">
-          <Link href="/Courses/4567" className="wd-dashboard-course-link">
-            <img
-              src="/images/python.png"
-              alt="Python Course"
-              className="course-image"
-            />
-            <div className="course-content">
-              <h5> CS4567 Python </h5>
-              <p className="wd-dashboard-course-title">
-                Data Science with Python
-              </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card className="h-100">
+              <Link
+                href="/Courses/1234/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <div
+                  style={{
+                    backgroundColor: "#4a90a4",
+                    height: "120px",
+                    position: "relative",
+                    borderTopLeftRadius: "0.375rem",
+                    borderTopRightRadius: "0.375rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src="/images/javascript.png"
+                    alt="JavaScript"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "8px",
+                      right: "8px",
+                      color: "white",
+                      fontSize: "18px",
+                      zIndex: 10,
+                      textShadow: "0 0 3px rgba(0,0,0,0.8)",
+                    }}
+                  >
+                    ⋮
+                  </div>
+                </div>
+                <CardBody className="p-3">
+                  <CardTitle
+                    className="wd-dashboard-course-title mb-1"
+                    style={{ fontSize: "16px", fontWeight: "600" }}
+                  >
+                    CS1277 JavaScript Fundamentals
+                  </CardTitle>
+                  <CardText
+                    className="text-muted mb-1"
+                    style={{ fontSize: "14px" }}
+                  >
+                    CS1277.98765.202410
+                  </CardText>
+                  <CardText className="text-muted" style={{ fontSize: "12px" }}>
+                    202410_1 Fall 2023 Semester Full Term
+                  </CardText>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
 
-        <div className="wd-dashboard-course course-card">
-          <Link href="/Courses/5678" className="wd-dashboard-course-link">
-            <img
-              src="/images/java.png"
-              alt="Java Course"
-              className="course-image"
-            />
-            <div className="course-content">
-              <h5> CS5678 Java </h5>
-              <p className="wd-dashboard-course-title">
-                Object-Oriented Programming
-              </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card className="h-100">
+              <Link
+                href="/Courses/1234/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <div
+                  style={{
+                    backgroundColor: "#4a90a4",
+                    height: "120px",
+                    position: "relative",
+                    borderTopLeftRadius: "0.375rem",
+                    borderTopRightRadius: "0.375rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src="/images/mongodb.png"
+                    alt="MongoDB"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "8px",
+                      right: "8px",
+                      color: "white",
+                      fontSize: "18px",
+                      zIndex: 10,
+                      textShadow: "0 0 3px rgba(0,0,0,0.8)",
+                    }}
+                  >
+                    ⋮
+                  </div>
+                </div>
+                <CardBody className="p-3">
+                  <CardTitle
+                    className="wd-dashboard-course-title mb-1"
+                    style={{ fontSize: "16px", fontWeight: "600" }}
+                  >
+                    CS1239 MongoDB Database
+                  </CardTitle>
+                  <CardText
+                    className="text-muted mb-1"
+                    style={{ fontSize: "14px" }}
+                  >
+                    CS1239.11111.202410
+                  </CardText>
+                  <CardText className="text-muted" style={{ fontSize: "12px" }}>
+                    202410_1 Fall 2023 Semester Full Term
+                  </CardText>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
 
-        <div className="wd-dashboard-course course-card">
-          <Link href="/Courses/6789" className="wd-dashboard-course-link">
-            <img
-              src="/images/htmlcss.jpg"
-              alt="HTML/CSS Course"
-              className="course-image"
-            />
-            <div className="course-content">
-              <h5> CS6789 HTML/CSS </h5>
-              <p className="wd-dashboard-course-title">
-                Web Design Fundamentals
-              </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card className="h-100">
+              <Link
+                href="/Courses/1234/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <div
+                  style={{
+                    backgroundColor: "#4a90a4",
+                    height: "120px",
+                    position: "relative",
+                    borderTopLeftRadius: "0.375rem",
+                    borderTopRightRadius: "0.375rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src="/images/htmlcss.jpg"
+                    alt="HTML CSS"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "8px",
+                      right: "8px",
+                      color: "white",
+                      fontSize: "18px",
+                      zIndex: 10,
+                      textShadow: "0 0 3px rgba(0,0,0,0.8)",
+                    }}
+                  >
+                    ⋮
+                  </div>
+                </div>
+                <CardBody className="p-3">
+                  <CardTitle
+                    className="wd-dashboard-course-title mb-1"
+                    style={{ fontSize: "16px", fontWeight: "600" }}
+                  >
+                    CS1299 HTML & CSS Basics
+                  </CardTitle>
+                  <CardText
+                    className="text-muted mb-1"
+                    style={{ fontSize: "14px" }}
+                  >
+                    CS1299.22222.202410
+                  </CardText>
+                  <CardText className="text-muted" style={{ fontSize: "12px" }}>
+                    202410_1 Fall 2023 Semester Full Term
+                  </CardText>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
 
-        <div className="wd-dashboard-course course-card">
-          <Link href="/Courses/7890" className="wd-dashboard-course-link">
-            <img
-              src="/images/javascript.png"
-              alt="JavaScript Course"
-              className="course-image"
-            />
-            <div className="course-content">
-              <h5> CS7890 JavaScript </h5>
-              <p className="wd-dashboard-course-title">
-                Modern JavaScript Development
-              </p>
-              <button> Go </button>
-            </div>
-          </Link>
-        </div>
+          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+            <Card className="h-100">
+              <Link
+                href="/Courses/1234/Home"
+                className="wd-dashboard-course-link text-decoration-none text-dark"
+              >
+                <div
+                  style={{
+                    backgroundColor: "#4a90a4",
+                    height: "120px",
+                    position: "relative",
+                    borderTopLeftRadius: "0.375rem",
+                    borderTopRightRadius: "0.375rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src="/images/python.png"
+                    alt="Python"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "8px",
+                      right: "8px",
+                      color: "white",
+                      fontSize: "18px",
+                      zIndex: 10,
+                      textShadow: "0 0 3px rgba(0,0,0,0.8)",
+                    }}
+                  >
+                    ⋮
+                  </div>
+                </div>
+                <CardBody className="p-3">
+                  <CardTitle
+                    className="wd-dashboard-course-title mb-1"
+                    style={{ fontSize: "16px", fontWeight: "600" }}
+                  >
+                    CS1235 Python Programming
+                  </CardTitle>
+                  <CardText
+                    className="text-muted mb-1"
+                    style={{ fontSize: "14px" }}
+                  >
+                    CS1235.33333.202410
+                  </CardText>
+                  <CardText className="text-muted" style={{ fontSize: "12px" }}>
+                    202410_1 Fall 2023 Semester Full Term
+                  </CardText>
+                </CardBody>
+              </Link>
+            </Card>
+          </Col>
+        </Row>
       </div>
     </div>
   );

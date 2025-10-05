@@ -1,4 +1,5 @@
 import Link from "next/link";
+import "./styles.css";
 
 export default function Labs() {
   return (
@@ -6,7 +7,9 @@ export default function Labs() {
       <h1>Labs</h1>
       <div className="student-info">
         <div className="student-name">Nishit Chaudhary</div>
-        <div className="student-nuid">NUID: 002565987 | Section: 04 | CRN: 18616 | Boston</div>
+        <div className="student-nuid">
+          NUID: 002565987 | Section: 04 | CRN: 18616 | Boston
+        </div>
       </div>
       <ul>
         <li>

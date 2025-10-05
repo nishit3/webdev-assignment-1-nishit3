@@ -1,27 +1,68 @@
+"use client";
+
 import Link from "next/link";
+import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 
 export default function Signin() {
   return (
-    <div id="wd-signin-screen" className="page-content">
-      <h3>Sign in</h3>
-      <form className="card">
-        <input placeholder="username" className="wd-username" /> <br />
-        <input
-          placeholder="password"
-          type="password"
-          className="wd-password"
-        />{" "}
-        <br />
-        <Link href="/Dashboard" id="wd-signin-btn">
-          {" "}
-          Sign in{" "}
-        </Link>{" "}
-        <br />
-        <Link href="Signup" id="wd-signup-link">
-          {" "}
-          Sign up{" "}
-        </Link>
-      </form>
-    </div>
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col md={4}>
+          <Card className="shadow-sm">
+            <Card.Body className="p-4">
+              <h3 className="text-center mb-4" style={{ color: "black" }}>
+                Signin
+              </h3>
+              <Form>
+                <div className="mb-3">
+                  <input
+                    type="text"
+                    placeholder="username"
+                    className="form-control wd-username"
+                    style={{ padding: "12px" }}
+                  />
+                </div>
+                <div className="mb-4">
+                  <input
+                    type="password"
+                    placeholder="password"
+                    className="form-control wd-password"
+                    style={{ padding: "12px" }}
+                  />
+                </div>
+                <Button
+                  variant="primary"
+                  className="w-100 mb-3"
+                  style={{
+                    padding: "12px",
+                    backgroundColor: "#007bff",
+                    borderColor: "#007bff",
+                    fontWeight: "500",
+                  }}
+                  as={Link}
+                  href="/Dashboard"
+                  id="wd-signin-btn"
+                >
+                  Signin
+                </Button>
+                <div className="text-center">
+                  <Link
+                    href="Signup"
+                    id="wd-signup-link"
+                    style={{
+                      color: "#007bff",
+                      textDecoration: "none",
+                      fontSize: "14px",
+                    }}
+                  >
+                    Signup
+                  </Link>
+                </div>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 }

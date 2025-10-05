@@ -1,11 +1,13 @@
 "use client";
 
+import "./styles.css";
+
 export default function Lab1() {
   return (
-    <div id="wd-lab1" className="page-content">
+    <div id="wd-lab1" className="lab1-container">
       <h2>Lab 1</h2>
       <h3>HTML Examples</h3>
-      <div id="wd-h-tag">
+      <div id="wd-h-tag" className="lab1-section">
         <h4>Heading Tags</h4>
         Text documents are often broken up into several sections and
         subsections. Each section is usually prefaced with a short title or
@@ -19,7 +21,7 @@ export default function Lab1() {
         h3, h4, h5, and h6. Tag h1 is the largest heading and h6 is the smallest
         heading.
       </div>
-      <div id="wd-p-tag">
+      <div id="wd-p-tag" className="lab1-section">
         <h4>Paragraph Tag</h4>
         <p id="wd-p-1">
           This is a paragraph. We often separate a long set of sentences with
@@ -43,7 +45,7 @@ export default function Lab1() {
           tag to tell browsers to render the gaps.
         </p>
       </div>
-      <div id="wd-lists">
+      <div id="wd-lists" className="lab1-section">
         <h4>List Tags</h4>
         <h5>Ordered List Tag</h5>
         How to make pancakes:
@@ -84,7 +86,7 @@ export default function Lab1() {
           <li>The Left Hand of Darkness</li>
         </ul>
       </div>
-      <div id="wd-tables">
+      <div id="wd-tables" className="lab1-section">
         <h4>Table Tag</h4>
         <table border={1} width="100%">
           <thead>
@@ -184,7 +186,7 @@ export default function Lab1() {
           alt="Tesla Bot"
         />
       </div>
-      <div id="wd-forms" className="form-section">
+      <div id="wd-forms" className="lab1-section">
         <h4>Form Elements</h4>
         <form id="wd-text-fields">
           <h5>Text Fields</h5>
@@ -398,19 +400,24 @@ export default function Lab1() {
           <br />
         </form>
       </div>
-      <h4>Anchor tag</h4>
-      Please
-      <a href="https://www.lipsum.com" id="wd-lipsum">
-        click here
-      </a>
-      to get dummy text
-      <br />
-      <a
-        href="https://github.com/nishit3/webdev-assignment-1-nishit3"
-        id="wd-github"
-      >
-        My GitHub Repository
-      </a>
+      <div className="lab1-section">
+        <h4>Anchor tag</h4>
+        <p>
+          Please
+          <a href="https://www.lipsum.com" id="wd-lipsum">
+            click here
+          </a>
+          to get dummy text
+        </p>
+        <p>
+          <a
+            href="https://github.com/nishit3/webdev-assignment-1-nishit3"
+            id="wd-github"
+          >
+            My GitHub Repository
+          </a>
+        </p>
+      </div>
     </div>
   );
 }
