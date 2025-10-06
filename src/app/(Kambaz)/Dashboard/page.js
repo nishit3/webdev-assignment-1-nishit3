@@ -1,14 +1,5 @@
 import Link from "next/link";
-import {
-  Card,
-  CardImg,
-  Col,
-  Row,
-  CardBody,
-  CardTitle,
-  CardText,
-  Button,
-} from "react-bootstrap";
+import { Card, Col, Row, CardBody, CardTitle, CardText } from "react-bootstrap";
 
 export default function Dashboard() {
   return (
@@ -17,7 +8,7 @@ export default function Dashboard() {
       <h2 id="wd-dashboard-published">Published Courses (7)</h2> <hr />
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">
-          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Col className="wd-dashboard-course" style={{ width: "auto" }}>
             <Card className="h-100">
               <Link
                 href="/Courses/1234/Home"
@@ -62,7 +53,11 @@ export default function Dashboard() {
                 <CardBody className="p-3">
                   <CardTitle
                     className="wd-dashboard-course-title mb-1"
-                    style={{ fontSize: "16px", fontWeight: "600" }}
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "600",
+                      backgroundColor: "white",
+                    }}
                   >
                     CS4550 12631 Web Development...
                   </CardTitle>
@@ -80,7 +75,7 @@ export default function Dashboard() {
             </Card>
           </Col>
 
-          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Col className="wd-dashboard-course" style={{ width: "auto" }}>
             <Card className="h-100">
               <Link
                 href="/Courses/1234/Home"
@@ -143,7 +138,7 @@ export default function Dashboard() {
             </Card>
           </Col>
 
-          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Col className="wd-dashboard-course" style={{ width: "auto" }}>
             <Card className="h-100">
               <Link
                 href="/Courses/1234/Home"
@@ -206,7 +201,7 @@ export default function Dashboard() {
             </Card>
           </Col>
 
-          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Col className="wd-dashboard-course" style={{ width: "auto" }}>
             <Card className="h-100">
               <Link
                 href="/Courses/1234/Home"
@@ -269,7 +264,7 @@ export default function Dashboard() {
             </Card>
           </Col>
 
-          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Col className="wd-dashboard-course" style={{ width: "auto" }}>
             <Card className="h-100">
               <Link
                 href="/Courses/1234/Home"
@@ -332,7 +327,7 @@ export default function Dashboard() {
             </Card>
           </Col>
 
-          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Col className="wd-dashboard-course" style={{ width: "auto" }}>
             <Card className="h-100">
               <Link
                 href="/Courses/1234/Home"
@@ -395,7 +390,7 @@ export default function Dashboard() {
             </Card>
           </Col>
 
-          <Col className="wd-dashboard-course" style={{ width: "300px" }}>
+          <Col className="wd-dashboard-course" style={{ width: "auto" }}>
             <Card className="h-100">
               <Link
                 href="/Courses/1234/Home"
