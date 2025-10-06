@@ -1,329 +1,136 @@
-"use client";
+import Link from "next/link";
+import {
+  Button,
+  ListGroup,
+  ListGroupItem,
+  Form,
+  InputGroup,
+  Row,
+  Col,
+} from "react-bootstrap";
+import { LuFilePenLine } from "react-icons/lu";
+import { BsGripVertical } from "react-icons/bs";
+import { FaEllipsisV, FaCheckCircle } from "react-icons/fa";
+import { AiOutlinePlus } from "react-icons/ai";
 
-import { Button, Row, Col, InputGroup } from "react-bootstrap";
-
-export default function Assignment() {
+export default async function Assignments({ params }) {
+  const { cid } = await params;
   return (
-    <div className="container-fluid p-4">
-      <Row>
-        <Col lg={8}>
-          <div className="mb-3">
-            <label
-              htmlFor="wd-name"
-              className="form-label"
-              style={{ color: "black" }}
-            >
-              Assignment Name
-            </label>
-            <input
+    <div id="wd-assignments">
+      <Row className="mb-4">
+        <Col md={6}>
+          <InputGroup>
+            <Form.Control
               type="text"
-              className="form-control"
-              id="wd-name"
-              defaultValue="A1"
-              placeholder="Assignment Name"
+              placeholder="Search..."
+              id="wd-search-assignment"
             />
-          </div>
-
-          <div className="mb-4">
-            <textarea
-              className="form-control w-100"
-              rows={12}
-              style={{ resize: "none", overflow: "hidden", minHeight: "300px" }}
-              id="wd-description"
-              defaultValue={`The assignment is available online
-
-Submit a link to the landing page of your Web application running on Netlify.
-
-The landing page should include the following:
-• Your full name and section
-• Links to each of the lab assignments
-• Link to the Kambas application
-• Links to all relevant source code repositories
-
-The Kambas application should include a link to navigate back to the landing page.`}
-            />
-          </div>
-
-          <Row className="mb-3">
-            <Col sm={3} className="text-end">
-              <label
-                htmlFor="wd-points"
-                className="col-form-label"
-                style={{ color: "black" }}
-              >
-                Points
-              </label>
-            </Col>
-            <Col sm={9}>
-              <input
-                type="number"
-                className="form-control"
-                id="wd-points"
-                defaultValue={100}
-              />
-            </Col>
-          </Row>
-
-          <Row className="mb-3">
-            <Col sm={3} className="text-end">
-              <label
-                htmlFor="wd-group"
-                className="col-form-label"
-                style={{ color: "black" }}
-              >
-                Assignment Group
-              </label>
-            </Col>
-            <Col sm={9}>
-              <select className="form-select" id="wd-group">
-                <option value="ASSIGNMENTS">ASSIGNMENTS</option>
-                <option value="QUIZZES">QUIZZES</option>
-                <option value="EXAMS">EXAMS</option>
-                <option value="PROJECT">PROJECT</option>
-              </select>
-            </Col>
-          </Row>
-
-          <Row className="mb-3">
-            <Col sm={3} className="text-end">
-              <label
-                htmlFor="wd-display-grade-as"
-                className="col-form-label"
-                style={{ color: "black" }}
-              >
-                Display Grade as
-              </label>
-            </Col>
-            <Col sm={9}>
-              <select className="form-select" id="wd-display-grade-as">
-                <option value="Percentage">Percentage</option>
-                <option value="Points">Points</option>
-                <option value="Letter">Letter Grade</option>
-              </select>
-            </Col>
-          </Row>
-
-          <Row className="mb-3">
-            <Col sm={3} className="text-end">
-              <label
-                className="col-form-label fw-bold"
-                style={{ color: "black" }}
-              >
-                Submission Type
-              </label>
-            </Col>
-            <Col sm={9}>
-              <div className="card p-3">
-                <select className="form-select mb-3" id="wd-submission-type">
-                  <option value="Online">Online</option>
-                  <option value="Paper">On Paper</option>
-                  <option value="External">External Tool</option>
-                </select>
-
-                <div>
-                  <strong style={{ color: "black" }}>
-                    Online Entry Options
-                  </strong>
-                  <div className="mt-2">
-                    <div className="form-check mb-1 d-flex align-items-start">
-                      <input
-                        className="form-check-input me-2 mt-1"
-                        type="checkbox"
-                        id="wd-text-entry"
-                      />
-                      <label
-                        className="form-check-label mb-0"
-                        htmlFor="wd-text-entry"
-                        style={{ color: "black" }}
-                      >
-                        Text Entry
-                      </label>
-                    </div>
-                    <div className="form-check mb-1 d-flex align-items-start">
-                      <input
-                        className="form-check-input me-2 mt-1"
-                        type="checkbox"
-                        id="wd-website-url"
-                        defaultChecked
-                      />
-                      <label
-                        className="form-check-label mb-0"
-                        htmlFor="wd-website-url"
-                        style={{ color: "black" }}
-                      >
-                        Website URL
-                      </label>
-                    </div>
-                    <div className="form-check mb-1 d-flex align-items-start">
-                      <input
-                        className="form-check-input me-2 mt-1"
-                        type="checkbox"
-                        id="wd-media-recordings"
-                      />
-                      <label
-                        className="form-check-label mb-0"
-                        htmlFor="wd-media-recordings"
-                        style={{ color: "black" }}
-                      >
-                        Media Recordings
-                      </label>
-                    </div>
-                    <div className="form-check mb-1 d-flex align-items-start">
-                      <input
-                        className="form-check-input me-2 mt-1"
-                        type="checkbox"
-                        id="wd-student-annotation"
-                      />
-                      <label
-                        className="form-check-label mb-0"
-                        htmlFor="wd-student-annotation"
-                        style={{ color: "black" }}
-                      >
-                        Student Annotation
-                      </label>
-                    </div>
-                    <div className="form-check mb-1 d-flex align-items-start">
-                      <input
-                        className="form-check-input me-2 mt-1"
-                        type="checkbox"
-                        id="wd-file-upload"
-                      />
-                      <label
-                        className="form-check-label mb-0"
-                        htmlFor="wd-file-upload"
-                        style={{ color: "black" }}
-                      >
-                        File Uploads
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Col>
-          </Row>
-
-          <Row className="mb-3">
-            <Col sm={3} className="text-end">
-              <label
-                className="col-form-label fw-bold"
-                style={{ color: "black" }}
-              >
-                Assign
-              </label>
-            </Col>
-            <Col sm={9}>
-              <div className="card p-3">
-                <div className="mb-3">
-                  <label
-                    className="form-label fw-bold"
-                    style={{ color: "black" }}
-                  >
-                    Assign to
-                  </label>
-                  <div
-                    className="form-control"
-                    style={{ minHeight: "40px", padding: "8px" }}
-                  >
-                    <span
-                      className="me-2"
-                      style={{
-                        backgroundColor: "#e9ecef",
-                        color: "black",
-                        padding: "4px 8px",
-                        fontSize: "14px",
-                        borderRadius: "4px",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        border: "1px solid #dee2e6",
-                      }}
-                    >
-                      Everyone
-                      <span
-                        style={{
-                          marginLeft: "8px",
-                          cursor: "pointer",
-                          color: "#6c757d",
-                          fontWeight: "bold",
-                          fontSize: "16px",
-                        }}
-                      >
-                        ×
-                      </span>
-                    </span>
-                  </div>
-                </div>
-
-                <Row>
-                  <Col md={4}>
-                    <div className="mb-3">
-                      <label
-                        className="form-label fw-bold"
-                        style={{ color: "black" }}
-                      >
-                        Due
-                      </label>
-                      <InputGroup>
-                        <input
-                          type="datetime-local"
-                          className="form-control"
-                          id="wd-due-date"
-                          defaultValue="2024-05-13T23:59"
-                        />
-                        <InputGroup.Text>𝄜</InputGroup.Text>
-                      </InputGroup>
-                    </div>
-                  </Col>
-                  <Col md={4}>
-                    <div className="mb-3">
-                      <label
-                        className="form-label fw-bold"
-                        style={{ color: "black" }}
-                      >
-                        Available from
-                      </label>
-                      <InputGroup>
-                        <input
-                          type="datetime-local"
-                          className="form-control"
-                          id="wd-available-from"
-                          defaultValue="2024-05-06T12:00"
-                        />
-                        <InputGroup.Text>𝄜</InputGroup.Text>
-                      </InputGroup>
-                    </div>
-                  </Col>
-                  <Col md={4}>
-                    <div className="mb-3">
-                      <label
-                        className="form-label fw-bold"
-                        style={{ color: "black" }}
-                      >
-                        Until
-                      </label>
-                      <InputGroup>
-                        <input
-                          type="datetime-local"
-                          className="form-control"
-                          id="wd-available-until"
-                          defaultValue="2024-05-20T23:59"
-                        />
-                        <InputGroup.Text>𝄜</InputGroup.Text>
-                      </InputGroup>
-                    </div>
-                  </Col>
-                </Row>
-              </div>
-            </Col>
-          </Row>
-
-          <hr className="my-4" />
-
-          <div className="d-flex justify-content-end gap-2">
-            <Button variant="outline-secondary">Cancel</Button>
-            <Button variant="danger">Save</Button>
-          </div>
+          </InputGroup>
+        </Col>
+        <Col md={6} className="text-end">
+          <Button
+            variant="outline-secondary"
+            className="me-2"
+            id="wd-add-assignment-group"
+          >
+            <AiOutlinePlus className="me-1" /> Group
+          </Button>
+          <Button variant="danger" id="wd-add-assignment">
+            <AiOutlinePlus className="me-1" /> Assignment
+          </Button>
         </Col>
       </Row>
+
+      <ListGroup className="rounded-0" id="wd-assignments-list">
+        <ListGroupItem className="wd-assignment-group p-0 mb-5 fs-5 border-gray">
+          <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
+            <div className="d-flex align-items-center">
+              <BsGripVertical className="me-2 fs-3" />
+              <span className="fw-bold">ASSIGNMENTS</span>
+              <span className="badge bg-light text-dark ms-2">
+                40% of Total
+              </span>
+            </div>
+            <div>
+              <Button variant="outline-primary" size="sm" className="me-2">
+                <AiOutlinePlus className="me-1" />
+              </Button>
+              <FaEllipsisV className="text-muted" />
+            </div>
+          </div>
+          <ListGroup className="wd-assignment-items rounded-0">
+            <ListGroupItem className="wd-assignment p-3 ps-1 d-flex align-items-center">
+              <BsGripVertical className="me-3 fs-3" />
+              <div className="p-2 rounded me-3">
+                <LuFilePenLine color="green" size={25} />
+              </div>
+              <div className="flex-grow-1">
+                <Link
+                  href={`/Courses/${cid}/Assignments/123`}
+                  className="text-decoration-none text-dark"
+                >
+                  <div className="fw-bold">A1</div>
+                  <div className="text-danger small">Multiple Modules</div>
+                  <div className="text-muted small">
+                    <strong>Not available until</strong> May 6 at 12:00am |
+                    <strong> Due</strong> May 13 at 11:59pm | 100 pts
+                  </div>
+                </Link>
+              </div>
+              <div className="d-flex align-items-center">
+                <FaCheckCircle className="text-success me-2" />
+                <FaEllipsisV className="text-muted" />
+              </div>
+            </ListGroupItem>
+            <ListGroupItem className="wd-assignment p-3 ps-1 d-flex align-items-center">
+              <BsGripVertical className="me-3 fs-3" />
+              <div className="p-2 rounded me-3">
+                <LuFilePenLine color="green" size={25} />
+              </div>
+              <div className="flex-grow-1">
+                <Link
+                  href={`/Courses/${cid}/Assignments/124`}
+                  className="text-decoration-none text-dark"
+                >
+                  <div className="fw-bold">A2</div>
+                  <div className="text-danger small">Multiple Modules</div>
+                  <div className="text-muted small">
+                    <strong>Not available until</strong> May 13 at 12:00am |
+                    <strong> Due</strong> May 20 at 11:59pm | 100 pts
+                  </div>
+                </Link>
+              </div>
+              <div className="d-flex align-items-center">
+                <FaCheckCircle className="text-success me-2" />
+                <FaEllipsisV className="text-muted" />
+              </div>
+            </ListGroupItem>
+            <ListGroupItem className="wd-assignment p-3 ps-1 d-flex align-items-center">
+              <BsGripVertical className="me-3 fs-3" />
+              <div className="p-2 rounded me-3">
+                <LuFilePenLine color="green" size={25} />
+              </div>
+              <div className="flex-grow-1">
+                <Link
+                  href={`/Courses/${cid}/Assignments/125`}
+                  className="text-decoration-none text-dark"
+                >
+                  <div className="fw-bold">A3</div>
+                  <div className="text-danger small">Multiple Modules</div>
+                  <div className="text-muted small">
+                    <strong>Not available until</strong> May 20 at 12:00am |
+                    <strong> Due</strong> May 27 at 11:59pm | 100 pts
+                  </div>
+                </Link>
+              </div>
+              <div className="d-flex align-items-center">
+                <FaCheckCircle className="text-success me-2" />
+                <FaEllipsisV className="text-muted" />
+              </div>
+            </ListGroupItem>
+          </ListGroup>
+        </ListGroupItem>
+      </ListGroup>
     </div>
   );
 }
