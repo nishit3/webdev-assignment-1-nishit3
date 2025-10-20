@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function Labs() {
+  redirect("/Account/Signin");
   return (
     <div id="wd-labs" className="page-content">
       <h1>Labs</h1>

@@ -1,0 +1,83 @@
+[
+  {
+    "aid": "A101",
+    "title": "Propulsion Assignment",
+    "cid": "RS101",
+    "description": "The assignment is available online.\n\nDesign and analyze a comprehensive rocket propulsion system for a Mars mission.\n\nYour submission should include the following:\n• Detailed thrust calculations and performance analysis\n• Fuel efficiency calculations and optimization strategies\n• Propellant selection with justification\n• Engine design specifications and schematics\n• Safety considerations and failure modes analysis\n• Performance graphs and simulation results\n\nSubmit your report as a PDF along with any MATLAB or Python code used for calculations.",
+    "points": 100,
+    "dueDate": "2024-05-13",
+    "availableDate": "2024-05-06"
+  },
+  {
+    "aid": "A102",
+    "title": "Combustion Analysis",
+    "cid": "RS101",
+    "description": "The assignment is available online.\n\nConduct a detailed combustion analysis for rocket propulsion systems.\n\nYour analysis must include:\n• Chemical reaction kinetics and equilibrium calculations\n• Temperature and pressure profiles in the combustion chamber\n• Heat transfer analysis\n• Combustion efficiency calculations\n• Comparison of different fuel-oxidizer combinations\n• Environmental impact assessment\n\nProvide detailed calculations, graphs, and a written report explaining your methodology and findings.",
+    "points": 110,
+    "dueDate": "2024-05-20",
+    "availableDate": "2024-05-13"
+  },
+  {
+    "aid": "A103",
+    "title": "Nozzle Design Project",
+    "cid": "RS101",
+    "description": "The assignment is available online.\n\nDesign an optimal rocket nozzle for maximum thrust efficiency.\n\nYour project deliverables should include:\n• Nozzle geometry calculations (throat area, expansion ratio, exit area)\n• Computational Fluid Dynamics (CFD) analysis\n• Pressure and velocity distribution plots\n• Thrust vectoring mechanism design (if applicable)\n• Material selection with thermal considerations\n• Manufacturing feasibility assessment\n• 3D CAD model of the nozzle design\n\nSubmit technical drawings, CFD results, and a comprehensive design report.",
+    "points": 121,
+    "dueDate": "2024-05-27",
+    "availableDate": "2024-05-20"
+  },
+  {
+    "aid": "A201",
+    "title": "Aerodynamics Quiz",
+    "cid": "RS102",
+    "description": "The quiz is available online.\n\nComplete a comprehensive assessment covering fundamental aerodynamics principles.\n\nTopics covered include:\n• Fluid dynamics equations and Bernoulli's principle\n• Lift and drag force calculations\n• Boundary layer theory and flow separation\n• Compressible flow and shock waves\n• Supersonic and hypersonic aerodynamics\n• Wind tunnel testing methodologies\n\nThe quiz consists of 25 multiple choice questions and 5 calculation problems. You will have 90 minutes to complete it.",
+    "points": 99,
+    "dueDate": "2024-05-13",
+    "availableDate": "2024-05-06"
+  },
+  {
+    "aid": "A202",
+    "title": "Flow Analysis",
+    "cid": "RS102",
+    "description": "The assignment is available online.\n\nPerform computational fluid dynamics analysis on spacecraft surfaces during atmospheric entry.\n\nYour deliverables should include:\n• CFD simulation setup and methodology\n• Flow field visualization and analysis\n• Pressure distribution on vehicle surfaces\n• Velocity profiles and streamline patterns\n• Mach number contours for supersonic regions\n• Comparison with analytical solutions\n• Recommendations for vehicle design optimization\n\nSubmit simulation files, visualization images, and a detailed technical report.",
+    "points": 100,
+    "dueDate": "2024-05-20",
+    "availableDate": "2024-05-13"
+  },
+  {
+    "aid": "A203",
+    "title": "Heating Analysis",
+    "cid": "RS102",
+    "description": "The assignment is available online.\n\nCalculate and analyze aerodynamic heating effects during spacecraft re-entry.\n\nYour analysis must cover:\n• Heat flux calculations at various altitudes\n• Temperature distribution on spacecraft surfaces\n• Thermal protection system (TPS) design requirements\n• Material selection for heat shields\n• Ablation analysis and erosion rates\n• Cooling system requirements\n• Trade-off analysis for different TPS configurations\n\nProvide detailed calculations, thermal simulation results, and design recommendations.",
+    "points": 111,
+    "dueDate": "2024-05-27",
+    "availableDate": "2024-05-20"
+  },
+  {
+    "aid": "A301",
+    "title": "Structural Design Task",
+    "cid": "RS103",
+    "description": "The assignment is available online.\n\nDesign spacecraft structural components considering mechanical loads and material properties.\n\nYour design package should include:\n• Structural load analysis (static and dynamic)\n• Stress and strain calculations using FEA\n• Material selection with property justification\n• Factor of safety calculations\n• Fatigue life analysis\n• Vibration analysis for launch loads\n• Weight optimization strategies\n• Detailed engineering drawings\n\nSubmit FEA results, calculations, CAD models, and a comprehensive design report.",
+    "points": 150,
+    "dueDate": "2024-05-13",
+    "availableDate": "2024-05-06"
+  },
+  {
+    "aid": "A302",
+    "title": "Orbital Calculations",
+    "cid": "RS103",
+    "description": "The assignment is available online.\n\nCalculate orbital mechanics for a satellite mission from Earth to Mars.\n\nYour submission should include:\n• Orbital element calculations (semi-major axis, eccentricity, inclination)\n• Hohmann transfer orbit design\n• Delta-v budget for entire mission\n• Launch window analysis\n• Trajectory optimization\n• Gravitational assist calculations (if applicable)\n• Mission timeline and key events\n\nProvide detailed calculations, MATLAB/Python scripts, trajectory plots, and a mission analysis report.",
+    "points": 100,
+    "dueDate": "2024-05-20",
+    "availableDate": "2024-05-13"
+  },
+  {
+    "aid": "A303",
+    "title": "Systems Engineering Exam",
+    "cid": "RS103",
+    "description": "The exam is available online.\n\nComprehensive examination covering spacecraft systems engineering principles.\n\nExam topics include:\n• Systems integration and interface management\n• Requirements analysis and verification\n• Trade study methodologies\n• Risk management and mitigation strategies\n• Project management and scheduling\n• Configuration management\n• Quality assurance processes\n• Life cycle cost analysis\n\nThe exam consists of 30 multiple choice questions, 10 short answer questions, and 2 design problems. You will have 3 hours to complete it.",
+    "points": 200,
+    "dueDate": "2024-05-27",
+    "availableDate": "2024-05-20"
+  }
+]

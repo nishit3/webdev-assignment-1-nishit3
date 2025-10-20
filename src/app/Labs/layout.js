@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import TOC from "./TOC";
 import "./styles.css";
 

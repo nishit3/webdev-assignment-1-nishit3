@@ -1,8 +1,13 @@
 "use client";
 
 import { Button, Row, Col, InputGroup } from "react-bootstrap";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import * as db from "../../../../Database";
 
 export default function AssignmentEditor() {
+  const { cid, aid } = useParams();
+  const assignment = db.assignments.find((a) => a.aid === aid && a.cid === cid);
   return (
     <div className="container-fluid p-4">
       <Row>
@@ -19,7 +24,7 @@ export default function AssignmentEditor() {
               type="text"
               className="form-control"
               id="wd-name"
-              defaultValue="A1"
+              defaultValue={assignment.title}
               placeholder="Assignment Name"
             />
           </div>
@@ -30,17 +35,7 @@ export default function AssignmentEditor() {
               rows={12}
               style={{ resize: "none", overflow: "hidden", minHeight: "300px" }}
               id="wd-description"
-              defaultValue={`The assignment is available online
-
-Submit a link to the landing page of your Web application running on Netlify.
-
-The landing page should include the following:
-• Your full name and section
-• Links to each of the lab assignments
-• Link to the Kambas application
-• Links to all relevant source code repositories
-
-The Kambas application should include a link to navigate back to the landing page.`}
+              defaultValue={assignment.description}
             />
           </div>
 
@@ -59,7 +54,7 @@ The Kambas application should include a link to navigate back to the landing pag
                 type="number"
                 className="form-control"
                 id="wd-points"
-                defaultValue={100}
+                defaultValue={assignment.points}
               />
             </Col>
           </Row>
@@ -267,7 +262,7 @@ The Kambas application should include a link to navigate back to the landing pag
                           type="datetime-local"
                           className="form-control"
                           id="wd-due-date"
-                          defaultValue="2024-05-13T23:59"
+                          defaultValue={`${assignment.dueDate}T23:59`}
                         />
                       </InputGroup>
                     </div>
@@ -285,7 +280,7 @@ The Kambas application should include a link to navigate back to the landing pag
                           type="datetime-local"
                           className="form-control"
                           id="wd-available-from"
-                          defaultValue="2024-05-06T12:00"
+                          defaultValue={`${assignment.availableDate}T23:59`}
                         />
                       </InputGroup>
                     </div>
@@ -316,8 +311,12 @@ The Kambas application should include a link to navigate back to the landing pag
           <hr className="my-4" />
 
           <div className="d-flex justify-content-end gap-2">
-            <Button variant="outline-secondary">Cancel</Button>
-            <Button variant="danger">Save</Button>
+            <Link href={`/Courses/${cid}/Assignments`} passHref>
+              <Button variant="outline-secondary">Cancel</Button>
+            </Link>
+            <Link href={`/Courses/${cid}/Assignments`} passHref>
+              <Button variant="danger">Save</Button>
+            </Link>
           </div>
         </Col>
       </Row>

@@ -12,9 +12,13 @@ import { LuFilePenLine } from "react-icons/lu";
 import { BsGripVertical } from "react-icons/bs";
 import { FaEllipsisV, FaCheckCircle } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
+import * as db from "../../../Database";
 
 export default async function Assignments({ params }) {
   const { cid } = await params;
+  const assignments = db.assignments.filter(
+    (assignment) => assignment.cid === cid
+  );
   return (
     <div id="wd-assignments">
       <Row className="mb-4">
@@ -59,75 +63,35 @@ export default async function Assignments({ params }) {
             </div>
           </div>
           <ListGroup className="wd-assignment-items rounded-0">
-            <ListGroupItem className="wd-assignment p-3 ps-1 d-flex align-items-center">
-              <BsGripVertical className="me-3 fs-3" />
-              <div className="p-2 rounded me-3">
-                <LuFilePenLine color="green" size={25} />
-              </div>
-              <div className="flex-grow-1">
-                <Link
-                  href={`/Courses/${cid}/Assignments/123`}
-                  className="text-decoration-none text-dark"
-                >
-                  <div className="fw-bold">A1</div>
-                  <div className="text-danger small">Multiple Modules</div>
-                  <div className="text-muted small">
-                    <strong>Not available until</strong> May 6 at 12:00am |
-                    <strong> Due</strong> May 13 at 11:59pm | 100 pts
-                  </div>
-                </Link>
-              </div>
-              <div className="d-flex align-items-center">
-                <FaCheckCircle className="text-success me-2" />
-                <FaEllipsisV className="text-muted" />
-              </div>
-            </ListGroupItem>
-            <ListGroupItem className="wd-assignment p-3 ps-1 d-flex align-items-center">
-              <BsGripVertical className="me-3 fs-3" />
-              <div className="p-2 rounded me-3">
-                <LuFilePenLine color="green" size={25} />
-              </div>
-              <div className="flex-grow-1">
-                <Link
-                  href={`/Courses/${cid}/Assignments/124`}
-                  className="text-decoration-none text-dark"
-                >
-                  <div className="fw-bold">A2</div>
-                  <div className="text-danger small">Multiple Modules</div>
-                  <div className="text-muted small">
-                    <strong>Not available until</strong> May 13 at 12:00am |
-                    <strong> Due</strong> May 20 at 11:59pm | 100 pts
-                  </div>
-                </Link>
-              </div>
-              <div className="d-flex align-items-center">
-                <FaCheckCircle className="text-success me-2" />
-                <FaEllipsisV className="text-muted" />
-              </div>
-            </ListGroupItem>
-            <ListGroupItem className="wd-assignment p-3 ps-1 d-flex align-items-center">
-              <BsGripVertical className="me-3 fs-3" />
-              <div className="p-2 rounded me-3">
-                <LuFilePenLine color="green" size={25} />
-              </div>
-              <div className="flex-grow-1">
-                <Link
-                  href={`/Courses/${cid}/Assignments/125`}
-                  className="text-decoration-none text-dark"
-                >
-                  <div className="fw-bold">A3</div>
-                  <div className="text-danger small">Multiple Modules</div>
-                  <div className="text-muted small">
-                    <strong>Not available until</strong> May 20 at 12:00am |
-                    <strong> Due</strong> May 27 at 11:59pm | 100 pts
-                  </div>
-                </Link>
-              </div>
-              <div className="d-flex align-items-center">
-                <FaCheckCircle className="text-success me-2" />
-                <FaEllipsisV className="text-muted" />
-              </div>
-            </ListGroupItem>
+            {assignments.map((assignment) => (
+              <ListGroupItem
+                className="wd-assignment p-3 ps-1 d-flex align-items-center"
+                key={assignment.aid}
+              >
+                <BsGripVertical className="me-3 fs-3" />
+                <div className="p-2 rounded me-3">
+                  <LuFilePenLine color="green" size={25} />
+                </div>
+                <div className="flex-grow-1">
+                  <Link
+                    href={`/Courses/${cid}/Assignments/${assignment.aid}`}
+                    className="text-decoration-none text-dark"
+                  >
+                    <div className="fw-bold">{assignment.title}</div>
+                    <div className="text-danger small">Multiple Modules</div>
+                    <div className="text-muted small">
+                      <strong>Not available until</strong>{" "}
+                      {assignment.availableDate} |<strong> Due</strong>{" "}
+                      {assignment.dueDate} | {assignment.points} pts
+                    </div>
+                  </Link>
+                </div>
+                <div className="d-flex align-items-center">
+                  <FaCheckCircle className="text-success me-2" />
+                  <FaEllipsisV className="text-muted" />
+                </div>
+              </ListGroupItem>
+            ))}
           </ListGroup>
         </ListGroupItem>
       </ListGroup>
