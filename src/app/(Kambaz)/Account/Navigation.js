@@ -1,43 +1,44 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const activeStyle = {
+  textDecoration: "none",
+  color: "black",
+  fontSize: "16px",
+  padding: "8px 0",
+  borderLeft: "4px solid black",
+  paddingLeft: "12px",
+  position: "relative",
+};
+
+const inactiveStyle = {
+  textDecoration: "none",
+  color: "#dc3545",
+  fontSize: "16px",
+  padding: "8px 0",
+};
 
 export default function AccountNavigation() {
+  const pathname = usePathname();
   return (
     <div className="d-flex flex-column p-3">
       <Link
         href="Signin"
-        style={{
-          textDecoration: "none",
-          color: "black",
-          fontSize: "16px",
-          padding: "8px 0",
-          borderLeft: "4px solid black",
-          paddingLeft: "12px",
-          position: "relative",
-        }}
+        style={pathname === "/Account/Signin" ? activeStyle : inactiveStyle}
       >
         Signin
       </Link>
       <Link
         href="Signup"
-        style={{
-          textDecoration: "none",
-          color: "#dc3545",
-          fontSize: "16px",
-          padding: "8px 0",
-        }}
+        style={pathname === "/Account/Signup" ? activeStyle : inactiveStyle}
       >
         Signup
       </Link>
       <Link
         href="Profile"
-        style={{
-          textDecoration: "none",
-          color: "#dc3545",
-          fontSize: "16px",
-          padding: "8px 0",
-        }}
+        style={pathname === "/Account/Profile" ? activeStyle : inactiveStyle}
       >
         Profile
       </Link>
