@@ -3,7 +3,7 @@ import TodoItem from "./TodoItem";
 import { ListGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
 export default function TodoList() {
-  const { todos } = useSelector((state) => state.todosReducer);
+  const { todos } = useSelector((state) => state.todoReducer);
   return (
     <div id="wd-todo-list-redux">
       <h2>Todo List</h2>
