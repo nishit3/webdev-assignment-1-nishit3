@@ -1,13 +1,67 @@
 "use client";
 
+import { useParams, useRouter } from "next/navigation";
 import { Button, Row, Col, InputGroup } from "react-bootstrap";
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import * as db from "../../../../Database";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { addAssignment, updateAssignment } from "../reducer";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
-  const assignment = db.assignments.find((a) => a.aid === aid && a.cid === cid);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { assignments } = useSelector((state) => state.assignmentsReducer);
+
+  // Default assignment values
+  const defaultAssignment = {
+    aid: "",
+    title: "",
+    description: "",
+    points: 100,
+    dueDate: "",
+    availableDate: "",
+    cid: cid,
+  };
+
+  // Initialize state with default or fetched assignment
+  const [assignment, setAssignment] = useState(defaultAssignment);
+
+  // Fetch assignment if editing (aid !== "new")
+  useEffect(() => {
+    if (aid !== "new") {
+      const existingAssignment = assignments.find((a) => a.aid === aid);
+      if (existingAssignment) {
+        setAssignment(existingAssignment);
+      }
+    }
+  }, [aid, assignments]);
+
+  // Handle input changes
+  const handleChange = (field, value) => {
+    setAssignment({ ...assignment, [field]: value });
+  };
+
+  // Handle save
+  const handleSave = () => {
+    if (aid === "new") {
+      // Generate new aid
+      const newAid = `A${Date.now()}`;
+      const newAssignment = {
+        ...assignment,
+        aid: newAid,
+      };
+      dispatch(addAssignment(newAssignment));
+    } else {
+      dispatch(updateAssignment(assignment));
+    }
+    router.push(`/Courses/${cid}/Assignments`);
+  };
+
+  // Handle cancel
+  const handleCancel = () => {
+    router.push(`/Courses/${cid}/Assignments`);
+  };
+
   return (
     <div className="container-fluid p-4">
       <Row>
@@ -24,7 +78,8 @@ export default function AssignmentEditor() {
               type="text"
               className="form-control"
               id="wd-name"
-              defaultValue={assignment.title}
+              value={assignment.title}
+              onChange={(e) => handleChange("title", e.target.value)}
               placeholder="Assignment Name"
             />
           </div>
@@ -35,7 +90,8 @@ export default function AssignmentEditor() {
               rows={12}
               style={{ resize: "none", overflow: "hidden", minHeight: "300px" }}
               id="wd-description"
-              defaultValue={assignment.description}
+              value={assignment.description}
+              onChange={(e) => handleChange("description", e.target.value)}
             />
           </div>
 
@@ -54,7 +110,10 @@ export default function AssignmentEditor() {
                 type="number"
                 className="form-control"
                 id="wd-points"
-                defaultValue={assignment.points}
+                value={assignment.points}
+                onChange={(e) =>
+                  handleChange("points", parseInt(e.target.value))
+                }
               />
             </Col>
           </Row>
@@ -262,7 +321,15 @@ export default function AssignmentEditor() {
                           type="datetime-local"
                           className="form-control"
                           id="wd-due-date"
-                          defaultValue={`${assignment.dueDate}T23:59`}
+                          value={
+                            assignment.dueDate
+                              ? `${assignment.dueDate}T23:59`
+                              : ""
+                          }
+                          onChange={(e) => {
+                            const dateValue = e.target.value.split("T")[0];
+                            handleChange("dueDate", dateValue);
+                          }}
                         />
                       </InputGroup>
                     </div>
@@ -280,7 +347,15 @@ export default function AssignmentEditor() {
                           type="datetime-local"
                           className="form-control"
                           id="wd-available-from"
-                          defaultValue={`${assignment.availableDate}T23:59`}
+                          value={
+                            assignment.availableDate
+                              ? `${assignment.availableDate}T12:00`
+                              : ""
+                          }
+                          onChange={(e) => {
+                            const dateValue = e.target.value.split("T")[0];
+                            handleChange("availableDate", dateValue);
+                          }}
                         />
                       </InputGroup>
                     </div>
@@ -311,12 +386,12 @@ export default function AssignmentEditor() {
           <hr className="my-4" />
 
           <div className="d-flex justify-content-end gap-2">
-            <Link href={`/Courses/${cid}/Assignments`} passHref>
-              <Button variant="outline-secondary">Cancel</Button>
-            </Link>
-            <Link href={`/Courses/${cid}/Assignments`} passHref>
-              <Button variant="danger">Save</Button>
-            </Link>
+            <Button variant="outline-secondary" onClick={handleCancel}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleSave}>
+              Save
+            </Button>
           </div>
         </Col>
       </Row>

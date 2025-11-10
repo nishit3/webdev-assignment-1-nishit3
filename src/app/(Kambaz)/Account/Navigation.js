@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
 
 const activeStyle = {
   textDecoration: "none",
@@ -22,6 +23,9 @@ const inactiveStyle = {
 
 export default function AccountNavigation() {
   const pathname = usePathname();
+  const { currentUser } = useSelector((state) => state.accountReducer);
+  const links = currentUser ? ["Profile"] : ["Signin", "Signup"];
+
   return (
     <div className="d-flex flex-column p-3">
       <Link

@@ -1,4 +1,5 @@
-import Link from "next/link";
+"use client";
+
 import {
   Button,
   ListGroup,
@@ -7,18 +8,50 @@ import {
   InputGroup,
   Row,
   Col,
+  Modal,
 } from "react-bootstrap";
 import { LuFilePenLine } from "react-icons/lu";
 import { BsGripVertical } from "react-icons/bs";
-import { FaEllipsisV, FaCheckCircle } from "react-icons/fa";
+import { FaEllipsisV, FaCheckCircle, FaTrash } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
-import * as db from "../../../Database";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "next/navigation";
+import { useState } from "react";
+import Link from "next/link";
+import { deleteAssignment } from "./reducer";
 
-export default async function Assignments({ params }) {
-  const { cid } = await params;
-  const assignments = db.assignments.filter(
+export default function Assignments() {
+  const { cid } = useParams();
+  const dispatch = useDispatch();
+  const { assignments } = useSelector((state) => state.assignmentsReducer);
+  const filteredAssignments = assignments.filter(
     (assignment) => assignment.cid === cid
   );
+
+  // State for delete confirmation dialog
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [assignmentToDelete, setAssignmentToDelete] = useState(null);
+
+  // Handle delete click
+  const handleDeleteClick = (assignment) => {
+    setAssignmentToDelete(assignment);
+    setShowDeleteDialog(true);
+  };
+
+  // Handle confirm delete
+  const handleConfirmDelete = () => {
+    if (assignmentToDelete) {
+      dispatch(deleteAssignment(assignmentToDelete.aid));
+    }
+    setShowDeleteDialog(false);
+    setAssignmentToDelete(null);
+  };
+
+  // Handle cancel delete
+  const handleCancelDelete = () => {
+    setShowDeleteDialog(false);
+    setAssignmentToDelete(null);
+  };
   return (
     <div id="wd-assignments">
       <Row className="mb-4">
@@ -39,7 +72,12 @@ export default async function Assignments({ params }) {
           >
             <AiOutlinePlus className="me-1" /> Group
           </Button>
-          <Button variant="danger" id="wd-add-assignment">
+          <Button
+            variant="danger"
+            id="wd-add-assignment"
+            as={Link}
+            href={`/Courses/${cid}/Assignments/new`}
+          >
             <AiOutlinePlus className="me-1" /> Assignment
           </Button>
         </Col>
@@ -63,7 +101,7 @@ export default async function Assignments({ params }) {
             </div>
           </div>
           <ListGroup className="wd-assignment-items rounded-0">
-            {assignments.map((assignment) => (
+            {filteredAssignments.map((assignment) => (
               <ListGroupItem
                 className="wd-assignment p-3 ps-1 d-flex align-items-center"
                 key={assignment.aid}
@@ -88,6 +126,11 @@ export default async function Assignments({ params }) {
                 </div>
                 <div className="d-flex align-items-center">
                   <FaCheckCircle className="text-success me-2" />
+                  <FaTrash
+                    className="text-danger me-2"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleDeleteClick(assignment)}
+                  />
                   <FaEllipsisV className="text-muted" />
                 </div>
               </ListGroupItem>
@@ -95,6 +138,25 @@ export default async function Assignments({ params }) {
           </ListGroup>
         </ListGroupItem>
       </ListGroup>
+
+      {/* Delete Confirmation Dialog */}
+      <Modal show={showDeleteDialog} onHide={handleCancelDelete}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Assignment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to remove the assignment &quot;
+          {assignmentToDelete?.title}&quot;?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCancelDelete}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleConfirmDelete}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
