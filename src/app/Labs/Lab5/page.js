@@ -8,7 +8,9 @@ import WorkingWithArrays from "./WorkingWithArrays";
 import WorkingWithArraysAsynchronously from "./WorkingWithArraysAsynchronously";
 import HttpClient from "./HttpClient";
 
-const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
+const HTTP_SERVER =
+  process.env.NEXT_PUBLIC_HTTP_SERVER ||
+  "https://kambaz-node-server-app-z7fi.onrender.com";
 
 export default function Lab5() {
   return (

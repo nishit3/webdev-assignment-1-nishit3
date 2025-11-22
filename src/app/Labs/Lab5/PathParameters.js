@@ -2,7 +2,9 @@
 import React, { useState } from "react";
 import { FormControl } from "react-bootstrap";
 
-const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
+const HTTP_SERVER =
+  process.env.NEXT_PUBLIC_HTTP_SERVER ||
+  "https://kambaz-node-server-app-z7fi.onrender.com";
 
 export default function PathParameters() {
   const [a, setA] = useState("34");

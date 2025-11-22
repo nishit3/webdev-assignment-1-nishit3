@@ -2,7 +2,9 @@
 import React, { useState } from "react";
 import { FormControl } from "react-bootstrap";
 
-const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
+const HTTP_SERVER =
+  process.env.NEXT_PUBLIC_HTTP_SERVER ||
+  "https://kambaz-node-server-app-z7fi.onrender.com";
 
 export default function WorkingWithArrays() {
   const API = `${HTTP_SERVER}/lab5/todos`;
@@ -47,7 +49,11 @@ export default function WorkingWithArrays() {
       </a>
       <hr />
       <h3>Creating new Items in an Array</h3>
-      <a id="wd-create-todo" className="btn btn-primary mb-2" href={`${API}/create`}>
+      <a
+        id="wd-create-todo"
+        className="btn btn-primary mb-2"
+        href={`${API}/create`}
+      >
         Create Todo
       </a>
       <hr />
