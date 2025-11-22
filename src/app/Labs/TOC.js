@@ -73,17 +73,26 @@ export default function TOC() {
         </NavLink>
       </NavItem>
       <NavItem>
-        <NavLink href="https://github.com/nishit3/assignment1-webdev-nishit3/tree/a5" target="_blank">
+        <NavLink
+          href="https://github.com/nishit3/webdev-assignment-1-nishit3/tree/a5"
+          target="_blank"
+        >
           React GitHub (a5)
         </NavLink>
       </NavItem>
       <NavItem>
-        <NavLink href="https://github.com/nishit3/kambaz-node-server-app" target="_blank">
+        <NavLink
+          href="https://github.com/nishit3/kambaz-node-server-app"
+          target="_blank"
+        >
           Server GitHub
         </NavLink>
       </NavItem>
       <NavItem>
-        <NavLink href="https://kambaz-node-server-app-z7fi.onrender.com" target="_blank">
+        <NavLink
+          href="https://kambaz-node-server-app-z7fi.onrender.com"
+          target="_blank"
+        >
           Server Render
         </NavLink>
       </NavItem>

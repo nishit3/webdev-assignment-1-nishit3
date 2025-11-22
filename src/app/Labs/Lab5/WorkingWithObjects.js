@@ -15,7 +15,14 @@ export default function WorkingWithObjects() {
     completed: false,
     score: 0,
   });
+  const [module, setModule] = useState({
+    id: 1,
+    name: "Introduction to NodeJS",
+    description: "Learn the basics of NodeJS",
+    course: "CS5610",
+  });
   const ASSIGNMENT_API_URL = `${HTTP_SERVER}/lab5/assignment`;
+  const MODULE_API_URL = `${HTTP_SERVER}/lab5/module`;
 
   return (
     <div id="wd-working-with-objects">
@@ -23,19 +30,33 @@ export default function WorkingWithObjects() {
       <h4>Retrieving Objects</h4>
       <a
         id="wd-retrieve-assignments"
-        className="btn btn-primary mb-2"
+        className="btn btn-primary mb-2 me-2"
         href={`${ASSIGNMENT_API_URL}`}
       >
         Get Assignment
+      </a>
+      <a
+        id="wd-retrieve-modules"
+        className="btn btn-primary mb-2"
+        href={`${MODULE_API_URL}`}
+      >
+        Get Module
       </a>
       <hr />
       <h4>Retrieving Properties</h4>
       <a
         id="wd-retrieve-assignment-title"
-        className="btn btn-primary mb-2"
+        className="btn btn-primary mb-2 me-2"
         href={`${ASSIGNMENT_API_URL}/title`}
       >
         Get Title
+      </a>
+      <a
+        id="wd-retrieve-module-name"
+        className="btn btn-primary mb-2"
+        href={`${MODULE_API_URL}/name`}
+      >
+        Get Module Name
       </a>
       <hr />
       <h4>Modifying Properties</h4>
