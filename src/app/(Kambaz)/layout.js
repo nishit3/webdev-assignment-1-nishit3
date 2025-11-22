@@ -4,49 +4,46 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./store";
 import "./styles.css";
-import { useEffect } from "react";
-
-function PersistDebugger({ children }) {
-  useEffect(() => {
-    console.log("PersistGate mounted, persistor:", persistor);
-    
-    // Check if localStorage is available
-    if (typeof window !== "undefined") {
-      console.log("localStorage available");
-      console.log("Current localStorage keys:", Object.keys(localStorage));
-      
-      // Try to read the persisted state
-      const persistedState = localStorage.getItem("persist:root");
-      if (persistedState) {
-        console.log("Found persisted state:", JSON.parse(persistedState));
-      } else {
-        console.log("No persisted state found in localStorage");
-      }
-    }
-  }, []);
-  
-  return children;
-}
+import { useEffect, useState } from "react";
 
 export default function KambazLayout({ children }) {
-  return (
-    <Provider store={store}>
-      <PersistGate 
-        loading={<div>Loading persisted state...</div>} 
-        persistor={persistor}
-      >
-        <PersistDebugger>
-          <div id="wd-kambaz">
-            <div className="d-flex">
-              <div>
-                <KambazNavigation />
-              </div>
-              <div className="wd-main-content-offset p-3 flex-fill">
-                {children}
-              </div>
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Prevent hydration mismatch by not rendering until client-side
+  if (!isClient) {
+    return (
+      <Provider store={store}>
+        <div id="wd-kambaz">
+          <div className="d-flex">
+            <div>
+              <KambazNavigation />
+            </div>
+            <div className="wd-main-content-offset p-3 flex-fill">
+              <div>Loading...</div>
             </div>
           </div>
-        </PersistDebugger>
+        </div>
+      </Provider>
+    );
+  }
+
+  return (
+    <Provider store={store}>
+      <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+        <div id="wd-kambaz">
+          <div className="d-flex">
+            <div>
+              <KambazNavigation />
+            </div>
+            <div className="wd-main-content-offset p-3 flex-fill">
+              {children}
+            </div>
+          </div>
+        </div>
       </PersistGate>
     </Provider>
   );

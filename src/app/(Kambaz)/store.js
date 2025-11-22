@@ -17,7 +17,6 @@ const persistConfig = {
     "assignmentsReducer",
     "enrollmentsReducer",
   ],
-  debug: true,
 };
 
 const rootReducer = combineReducers({
@@ -30,49 +29,24 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-let store;
-let persistor;
+// Create store singleton
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [
+          "persist/PERSIST",
+          "persist/REHYDRATE",
+          "persist/REGISTER",
+          "persist/PAUSE",
+          "persist/PURGE",
+          "persist/FLUSH",
+        ],
+        ignoredPaths: ["_persist"],
+      },
+    }),
+});
 
-export function makeStore() {
-  if (store) {
-    return { store, persistor };
-  }
-
-  store = configureStore({
-    reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: {
-          ignoredActions: [
-            "persist/PERSIST",
-            "persist/REHYDRATE",
-            "persist/REGISTER",
-            "persist/PAUSE",
-            "persist/PURGE",
-            "persist/FLUSH",
-          ],
-          ignoredPaths: ["_persist"],
-        },
-      }),
-  });
-
-  persistor = persistStore(store);
-
-  // Debug: log when store is created
-  if (typeof window !== "undefined") {
-    console.log("Redux store created on client side");
-    console.log("Initial state:", store.getState());
-
-    // Subscribe to state changes
-    store.subscribe(() => {
-      console.log("State changed:", store.getState().modulesReducer);
-    });
-  }
-
-  return { store, persistor };
-}
-
-const { store: defaultStore, persistor: defaultPersistor } = makeStore();
-
-export { defaultPersistor as persistor };
-export default defaultStore;
+export const persistor = persistStore(store);
+export default store;

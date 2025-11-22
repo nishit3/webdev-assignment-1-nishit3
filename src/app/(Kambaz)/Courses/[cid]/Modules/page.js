@@ -20,15 +20,19 @@ export default function Modules() {
   const { cid } = useParams();
   const { modules } = useSelector((state) => state.modulesReducer);
   const [moduleName, setModuleName] = useState("");
+  const [isClient, setIsClient] = useState(false);
   const dispatch = useDispatch();
 
-  // Debug: log when modules change
   useEffect(() => {
-    console.log("Modules state updated:", modules);
-  }, [modules]);
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return <div>Loading modules...</div>;
+  }
 
   return (
-    <div>
+    <div suppressHydrationWarning>
       <ModulesControls
         setModuleName={setModuleName}
         moduleName={moduleName}
