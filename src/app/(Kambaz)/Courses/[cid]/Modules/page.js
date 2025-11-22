@@ -1,12 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import ModulesControls from "./ModulesControls";
 import LessonControlButtons from "./LessonControlButtons";
 import { BsGripVertical } from "react-icons/bs";
 import ModuleControlButtons from "./ModuleControlButtons";
 import { FormControl } from "react-bootstrap";
-import { addModule, editModule, updateModule, deleteModule } from "./reducer";
+import {
+  addModule,
+  editModule,
+  updateModule,
+  deleteModule,
+  saveModule,
+  cancelEdit,
+} from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Modules() {
@@ -14,6 +21,11 @@ export default function Modules() {
   const { modules } = useSelector((state) => state.modulesReducer);
   const [moduleName, setModuleName] = useState("");
   const dispatch = useDispatch();
+
+  // Debug: log when modules change
+  useEffect(() => {
+    console.log("Modules state updated:", modules);
+  }, [modules]);
 
   return (
     <div>
@@ -43,6 +55,7 @@ export default function Modules() {
                 {module.editing && (
                   <FormControl
                     className="w-50 d-inline-block"
+                    value={module.name}
                     onChange={(e) =>
                       dispatch(
                         updateModule({ ...module, name: e.target.value })
@@ -50,16 +63,21 @@ export default function Modules() {
                     }
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        dispatch(updateModule({ ...module, editing: false }));
+                        dispatch(saveModule(module.cid));
+                      } else if (e.key === "Escape") {
+                        dispatch(cancelEdit(module.cid));
                       }
                     }}
-                    defaultValue={module.name}
+                    autoFocus
                   />
                 )}
 
                 <ModuleControlButtons
                   deleteModule={(moduleId) => dispatch(deleteModule(moduleId))}
                   editModule={(moduleId) => dispatch(editModule(moduleId))}
+                  saveModule={(moduleId) => dispatch(saveModule(moduleId))}
+                  cancelEdit={(moduleId) => dispatch(cancelEdit(moduleId))}
+                  isEditing={module.editing}
                   moduleId={module.cid}
                 />
               </div>
