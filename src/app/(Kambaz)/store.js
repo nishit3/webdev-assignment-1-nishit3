@@ -12,6 +12,7 @@ const persistConfig = {
   key: "root",
   storage,
   whitelist: [
+    "accountReducer",
     "modulesReducer",
     "coursesReducer",
     "assignmentsReducer",
