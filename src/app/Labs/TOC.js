@@ -54,6 +54,15 @@ export default function TOC() {
       </NavItem>
       <NavItem>
         <NavLink
+          href="/Labs/Lab5"
+          as={Link}
+          className={`nav-link ${pathname.endsWith("Lab5") ? "active" : ""}`}
+        >
+          Lab 5
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink
           href="/Dashboard"
           as={Link}
           className={`nav-link ${
@@ -64,7 +73,19 @@ export default function TOC() {
         </NavLink>
       </NavItem>
       <NavItem>
-        <NavLink href="https://github.com/nishit3">My GitHub</NavLink>
+        <NavLink href="https://github.com/nishit3/assignment1-webdev-nishit3/tree/a5" target="_blank">
+          React GitHub (a5)
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="https://github.com/nishit3/kambaz-node-server-app" target="_blank">
+          Server GitHub
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="https://kambaz-node-server-app-z7fi.onrender.com" target="_blank">
+          Server Render
+        </NavLink>
       </NavItem>
     </Nav>
   );
