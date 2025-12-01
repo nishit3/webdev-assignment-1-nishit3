@@ -41,16 +41,12 @@ export default function Dashboard() {
     try {
       const myCourses = await client.findMyCourses();
       const enrolledIds = myCourses.map(c => c._id);
-      
-      console.log("My enrolled course IDs:", enrolledIds);
       setMyCourseIds(enrolledIds);
       
       if (showAllCourses) {
         const allCourses = await client.fetchAllCourses();
-        console.log("All courses:", allCourses.length);
         dispatch(setCourses(allCourses));
       } else {
-        console.log("My courses:", myCourses.length);
         dispatch(setCourses(myCourses));
       }
     } catch (error) {
@@ -62,7 +58,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (currentUser) {
-      console.log("Current user:", currentUser.username, "Role:", currentUser.role);
       fetchCourses();
     }
   }, [currentUser, showAllCourses]);
@@ -131,12 +126,6 @@ export default function Dashboard() {
   const handleCourseClick = (courseId) => {
     const enrolled = myCourseIds.includes(courseId);
     const isFaculty = currentUser.role === "FACULTY" || currentUser.role === "ADMIN";
-    
-    console.log(`Navigating to course ${courseId}`);
-    console.log(`  - Enrolled: ${enrolled}`);
-    console.log(`  - Is Faculty: ${isFaculty}`);
-    console.log(`  - Can Access: ${enrolled || isFaculty}`);
-    console.log(`  - Target URL: /Courses/${courseId}/Home`);
     
     if (enrolled || isFaculty) {
       router.push(`/Courses/${courseId}/Home`);
@@ -213,16 +202,10 @@ export default function Dashboard() {
         {courses.length})
       </h2>
       <hr />
-      
-      <div style={{ fontSize: '12px', color: '#666', marginBottom: '10px' }}>
-        Debug: Enrolled in {myCourseIds.length} courses: {myCourseIds.join(", ")}
-      </div>
-      
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">
           {courses.map((course) => {
             const enrolled = isEnrolled(course._id);
-            const canAccess = enrolled || isFaculty;
             
             return (
               <Col
@@ -245,7 +228,6 @@ export default function Dashboard() {
                     <CardBody className="card-body">
                       <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
                         {course.name}
-                        {enrolled && <span style={{ color: 'green', fontSize: '14px', marginLeft: '5px' }}>✓</span>}
                       </CardTitle>
                       <CardText
                         className="wd-dashboard-course-description overflow-hidden"
