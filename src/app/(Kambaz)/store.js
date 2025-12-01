@@ -12,11 +12,8 @@ const persistConfig = {
   key: "root",
   storage,
   whitelist: [
-    "accountReducer",
-    "modulesReducer",
-    "coursesReducer",
-    "assignmentsReducer",
-    "enrollmentsReducer",
+    "accountReducer",  // Only persist logged-in user
+    // Everything else fetches fresh from API
   ],
 };
 

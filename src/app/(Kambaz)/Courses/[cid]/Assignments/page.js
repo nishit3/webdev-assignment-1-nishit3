@@ -16,21 +16,33 @@ import { FaEllipsisV, FaCheckCircle, FaTrash } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { deleteAssignment } from "./reducer";
+import { setAssignments, removeAssignment } from "./reducer";
+import * as client from "../../client";
 
 export default function Assignments() {
   const { cid } = useParams();
   const dispatch = useDispatch();
   const { assignments } = useSelector((state) => state.assignmentsReducer);
-  const filteredAssignments = assignments.filter(
-    (assignment) => assignment.cid === cid
-  );
 
   // State for delete confirmation dialog
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [assignmentToDelete, setAssignmentToDelete] = useState(null);
+
+  // Fetch assignments from API
+  const fetchAssignments = async () => {
+    try {
+      const fetchedAssignments = await client.findAssignmentsForCourse(cid);
+      dispatch(setAssignments(fetchedAssignments));
+    } catch (error) {
+      console.error("Error fetching assignments:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+  }, [cid]);
 
   // Handle delete click
   const handleDeleteClick = (assignment) => {
@@ -39,9 +51,14 @@ export default function Assignments() {
   };
 
   // Handle confirm delete
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (assignmentToDelete) {
-      dispatch(deleteAssignment(assignmentToDelete.aid));
+      try {
+        await client.deleteAssignment(assignmentToDelete._id);
+        dispatch(removeAssignment(assignmentToDelete._id));
+      } catch (error) {
+        console.error("Error deleting assignment:", error);
+      }
     }
     setShowDeleteDialog(false);
     setAssignmentToDelete(null);
@@ -52,6 +69,7 @@ export default function Assignments() {
     setShowDeleteDialog(false);
     setAssignmentToDelete(null);
   };
+
   return (
     <div id="wd-assignments">
       <Row className="mb-4">
@@ -101,10 +119,10 @@ export default function Assignments() {
             </div>
           </div>
           <ListGroup className="wd-assignment-items rounded-0">
-            {filteredAssignments.map((assignment) => (
+            {assignments.map((assignment) => (
               <ListGroupItem
                 className="wd-assignment p-3 ps-1 d-flex align-items-center"
-                key={assignment.aid}
+                key={assignment._id}
               >
                 <BsGripVertical className="me-3 fs-3" />
                 <div className="p-2 rounded me-3">
@@ -112,14 +130,14 @@ export default function Assignments() {
                 </div>
                 <div className="flex-grow-1">
                   <Link
-                    href={`/Courses/${cid}/Assignments/${assignment.aid}`}
+                    href={`/Courses/${cid}/Assignments/${assignment._id}`}
                     className="text-decoration-none text-dark"
                   >
                     <div className="fw-bold">{assignment.title}</div>
                     <div className="text-danger small">Multiple Modules</div>
                     <div className="text-muted small">
                       <strong>Not available until</strong>{" "}
-                      {assignment.availableDate} |<strong> Due</strong>{" "}
+                      {assignment.availableDate} | <strong>Due</strong>{" "}
                       {assignment.dueDate} | {assignment.points} pts
                     </div>
                   </Link>
