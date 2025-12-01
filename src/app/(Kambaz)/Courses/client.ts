@@ -7,12 +7,16 @@ const COURSES_API = `${HTTP_SERVER}/api/courses`;
 const USERS_API = `${HTTP_SERVER}/api/users`;
 
 export const fetchAllCourses = async () => {
-  const { data } = await axios.get(COURSES_API);
+  console.log("Fetching all courses from:", `${COURSES_API}`);
+  const { data, status } = await axios.get(COURSES_API);
+  console.log(`fetchAllCourses status: ${status}, count: ${data?.length}`);
   return data;
 };
 
 export const findMyCourses = async () => {
-  const { data } = await axiosWithCredentials.get(`${USERS_API}/current/courses`);
+  console.log("Fetching my courses from:", `${USERS_API}/current/courses`);
+  const { data, status } = await axiosWithCredentials.get(`${USERS_API}/current/courses`);
+  console.log(`findMyCourses status: ${status}, count: ${data?.length}, data:`, data);
   return data;
 };
 
