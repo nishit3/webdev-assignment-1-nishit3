@@ -5,39 +5,72 @@ import Breadcrumb from "./Breadcrumb";
 import { useParams, useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import * as client from "../client";
 
 export default function CoursesLayout({ children }) {
   const { cid } = useParams();
   const router = useRouter();
   const { courses } = useSelector((state) => state.coursesReducer);
-  const { enrollments } = useSelector((state) => state.enrollmentsReducer);
   const { currentUser } = useSelector((state) => state.accountReducer);
-  const course = courses.find((course) => course.cid === cid);
   const [showCourseNavigation, setShowCourseNavigation] = useState(true);
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // Check if user is enrolled in this course
-  const isEnrolled = enrollments.some(
-    (enrollment) =>
-      enrollment.userId === currentUser?.userId && enrollment.course === cid
-  );
+  // Find current course
+  const course = courses.find((c) => c._id === cid);
 
-  const isFaculty = currentUser?.role === "FACULTY";
-
-  // Protect route - redirect to dashboard if not enrolled and not faculty
+  // Check enrollment
   useEffect(() => {
-    if (currentUser && !isEnrolled && !isFaculty) {
-      router.push("/Dashboard");
-    }
-  }, [currentUser, isEnrolled, isFaculty, router]);
+    const checkEnrollment = async () => {
+      if (!currentUser) {
+        router.push("/Account/Signin");
+        return;
+      }
 
-  // Show nothing while checking enrollment or redirecting
-  if (!currentUser || (!isEnrolled && !isFaculty)) {
-    return null;
-  }
+      const isFaculty = currentUser.role === "FACULTY" || currentUser.role === "ADMIN";
+      
+      if (isFaculty) {
+        // Faculty can access all courses
+        setIsEnrolled(true);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        // Fetch user's enrolled courses to check if they have access
+        const myCourses = await client.findMyCourses();
+        const enrolled = myCourses.some((c) => c._id === cid);
+        
+        console.log(`Course ${cid} enrollment check:`, enrolled);
+        
+        if (!enrolled) {
+          console.log("Not enrolled, redirecting to dashboard");
+          router.push("/Dashboard");
+          return;
+        }
+        
+        setIsEnrolled(enrolled);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error checking enrollment:", error);
+        router.push("/Dashboard");
+      }
+    };
+
+    checkEnrollment();
+  }, [cid, currentUser]);
 
   const toggleCourseNavigation = () => {
     setShowCourseNavigation(!showCourseNavigation);
   };
+
+  if (loading) {
+    return <div>Loading course...</div>;
+  }
+
+  if (!isEnrolled) {
+    return null;
+  }
 
   return (
     <div id="wd-courses">
