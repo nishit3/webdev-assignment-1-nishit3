@@ -4,7 +4,8 @@ import { useParams, useRouter } from "next/navigation";
 import { Button, Row, Col, InputGroup } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { addAssignment, updateAssignment } from "../reducer";
+import { addAssignment, updateAssignmentInState } from "../reducer";
+import * as client from "../../../client";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
@@ -12,52 +13,45 @@ export default function AssignmentEditor() {
   const dispatch = useDispatch();
   const { assignments } = useSelector((state) => state.assignmentsReducer);
 
-  // Default assignment values
   const defaultAssignment = {
-    aid: "",
     title: "",
     description: "",
     points: 100,
     dueDate: "",
     availableDate: "",
-    cid: cid,
+    availableUntilDate: "",
   };
 
-  // Initialize state with default or fetched assignment
   const [assignment, setAssignment] = useState(defaultAssignment);
 
-  // Fetch assignment if editing (aid !== "new")
   useEffect(() => {
     if (aid !== "new") {
-      const existingAssignment = assignments.find((a) => a.aid === aid);
+      const existingAssignment = assignments.find((a) => a._id === aid);
       if (existingAssignment) {
         setAssignment(existingAssignment);
       }
     }
   }, [aid, assignments]);
 
-  // Handle input changes
   const handleChange = (field, value) => {
     setAssignment({ ...assignment, [field]: value });
   };
 
-  // Handle save
-  const handleSave = () => {
-    if (aid === "new") {
-      // Generate new aid
-      const newAid = `A${Date.now()}`;
-      const newAssignment = {
-        ...assignment,
-        aid: newAid,
-      };
-      dispatch(addAssignment(newAssignment));
-    } else {
-      dispatch(updateAssignment(assignment));
+  const handleSave = async () => {
+    try {
+      if (aid === "new") {
+        const newAssignment = await client.createAssignmentForCourse(cid, assignment);
+        dispatch(addAssignment(newAssignment));
+      } else {
+        await client.updateAssignment(cid, assignment);
+        dispatch(updateAssignmentInState(assignment));
+      }
+      router.push(`/Courses/${cid}/Assignments`);
+    } catch (error) {
+      console.error("Error saving assignment:", error);
     }
-    router.push(`/Courses/${cid}/Assignments`);
   };
 
-  // Handle cancel
   const handleCancel = () => {
     router.push(`/Courses/${cid}/Assignments`);
   };
@@ -373,7 +367,15 @@ export default function AssignmentEditor() {
                           type="datetime-local"
                           className="form-control"
                           id="wd-available-until"
-                          defaultValue="2024-05-20T23:59"
+                          value={
+                            assignment.availableUntilDate
+                              ? `${assignment.availableUntilDate}T23:59`
+                              : ""
+                          }
+                          onChange={(e) => {
+                            const dateValue = e.target.value.split("T")[0];
+                            handleChange("availableUntilDate", dateValue);
+                          }}
                         />
                       </InputGroup>
                     </div>

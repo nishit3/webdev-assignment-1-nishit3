@@ -18,12 +18,8 @@ export default function Signin() {
     setError("");
     setLoading(true);
     
-    console.log("Attempting signin with:", credentials.username);
-    console.log("API Server:", process.env.NEXT_PUBLIC_HTTP_SERVER);
-    
     try {
       const user = await client.signin(credentials);
-      console.log("Signin successful:", user);
       
       if (!user) {
         setError("Invalid credentials");
@@ -32,10 +28,8 @@ export default function Signin() {
       }
       
       dispatch(setCurrentUser(user));
-      console.log("User set in Redux, redirecting...");
       router.push("/Dashboard");
     } catch (err) {
-      console.error("Signin error:", err);
       setError(err.response?.data?.message || "Invalid credentials. Please try again.");
       setLoading(false);
     }
@@ -55,10 +49,9 @@ export default function Signin() {
       
       <FormControl
         value={credentials.username}
-        onChange={(e) => {
-          console.log("Username changed:", e.target.value);
-          setCredentials({ ...credentials, username: e.target.value });
-        }}
+        onChange={(e) =>
+          setCredentials({ ...credentials, username: e.target.value })
+        }
         className="mb-2"
         placeholder="username"
         id="wd-username"
@@ -68,10 +61,9 @@ export default function Signin() {
       
       <FormControl
         value={credentials.password}
-        onChange={(e) => {
-          console.log("Password changed");
-          setCredentials({ ...credentials, password: e.target.value });
-        }}
+        onChange={(e) =>
+          setCredentials({ ...credentials, password: e.target.value })
+        }
         className="mb-2"
         placeholder="password"
         type="password"
@@ -81,10 +73,7 @@ export default function Signin() {
       />
       
       <Button 
-        onClick={() => {
-          console.log("Sign in button clicked!");
-          signin();
-        }} 
+        onClick={signin} 
         id="wd-signin-btn" 
         className="w-100 mb-2"
         disabled={loading}
@@ -95,10 +84,6 @@ export default function Signin() {
       <Link id="wd-signup-link" href="/Account/Signup">
         Sign up
       </Link>
-      
-      <div className="mt-3 text-muted small">
-        <p>Server: {process.env.NEXT_PUBLIC_HTTP_SERVER || "NOT SET"}</p>
-      </div>
     </div>
   );
 }

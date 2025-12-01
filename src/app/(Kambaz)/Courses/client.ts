@@ -5,8 +5,6 @@ const axiosWithCredentials = axios.create({ withCredentials: true });
 const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
 const COURSES_API = `${HTTP_SERVER}/api/courses`;
 const USERS_API = `${HTTP_SERVER}/api/users`;
-const MODULES_API = `${HTTP_SERVER}/api/modules`;
-const ASSIGNMENTS_API = `${HTTP_SERVER}/api/assignments`;
 
 export const fetchAllCourses = async () => {
   const { data } = await axios.get(COURSES_API);
@@ -43,13 +41,11 @@ export const createModuleForCourse = async (courseId: string, module: any) => {
   return response.data;
 };
 
-// ✅ FIXED - Now includes courseId in URL
 export const deleteModule = async (courseId: string, moduleId: string) => {
   const response = await axios.delete(`${COURSES_API}/${courseId}/modules/${moduleId}`);
   return response.data;
 };
 
-// ✅ FIXED - Now includes courseId in URL
 export const updateModule = async (courseId: string, module: any) => {
   const { data } = await axios.put(`${COURSES_API}/${courseId}/modules/${module._id}`, module);
   return data;
@@ -65,13 +61,13 @@ export const createAssignmentForCourse = async (courseId: string, assignment: an
   return response.data;
 };
 
-export const deleteAssignment = async (assignmentId: string) => {
-  const response = await axios.delete(`${ASSIGNMENTS_API}/${assignmentId}`);
+export const deleteAssignment = async (courseId: string, assignmentId: string) => {
+  const response = await axios.delete(`${COURSES_API}/${courseId}/assignments/${assignmentId}`);
   return response.data;
 };
 
-export const updateAssignment = async (assignment: any) => {
-  const { data } = await axios.put(`${ASSIGNMENTS_API}/${assignment._id}`, assignment);
+export const updateAssignment = async (courseId: string, assignment: any) => {
+  const { data } = await axios.put(`${COURSES_API}/${courseId}/assignments/${assignment._id}`, assignment);
   return data;
 };
 

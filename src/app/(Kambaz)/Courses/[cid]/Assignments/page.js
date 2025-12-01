@@ -26,11 +26,9 @@ export default function Assignments() {
   const dispatch = useDispatch();
   const { assignments } = useSelector((state) => state.assignmentsReducer);
 
-  // State for delete confirmation dialog
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [assignmentToDelete, setAssignmentToDelete] = useState(null);
 
-  // Fetch assignments from API
   const fetchAssignments = async () => {
     try {
       const fetchedAssignments = await client.findAssignmentsForCourse(cid);
@@ -44,17 +42,15 @@ export default function Assignments() {
     fetchAssignments();
   }, [cid]);
 
-  // Handle delete click
   const handleDeleteClick = (assignment) => {
     setAssignmentToDelete(assignment);
     setShowDeleteDialog(true);
   };
 
-  // Handle confirm delete
   const handleConfirmDelete = async () => {
     if (assignmentToDelete) {
       try {
-        await client.deleteAssignment(assignmentToDelete._id);
+        await client.deleteAssignment(cid, assignmentToDelete._id);
         dispatch(removeAssignment(assignmentToDelete._id));
       } catch (error) {
         console.error("Error deleting assignment:", error);
@@ -64,7 +60,6 @@ export default function Assignments() {
     setAssignmentToDelete(null);
   };
 
-  // Handle cancel delete
   const handleCancelDelete = () => {
     setShowDeleteDialog(false);
     setAssignmentToDelete(null);
@@ -157,7 +152,6 @@ export default function Assignments() {
         </ListGroupItem>
       </ListGroup>
 
-      {/* Delete Confirmation Dialog */}
       <Modal show={showDeleteDialog} onHide={handleCancelDelete}>
         <Modal.Header closeButton>
           <Modal.Title>Delete Assignment</Modal.Title>

@@ -33,15 +33,12 @@ export default function Dashboard() {
     description: "New course description",
   });
 
-  // Fetch courses from API
   const fetchCourses = async () => {
     try {
       if (showAllCourses) {
-        // Fetch all courses
         const allCourses = await client.fetchAllCourses();
         dispatch(setCourses(allCourses));
       } else {
-        // Fetch only enrolled courses
         const myCourses = await client.findMyCourses();
         dispatch(setCourses(myCourses));
         setEnrolledCourses(myCourses.map(c => c._id));
@@ -61,7 +58,6 @@ export default function Dashboard() {
     try {
       const newCourse = await client.createCourse(course);
       dispatch(addNewCourse(newCourse));
-      // Reset form
       setCourse({
         name: "New Course",
         number: "CS0000",
@@ -120,7 +116,6 @@ export default function Dashboard() {
 
   const isFaculty = currentUser.role === "FACULTY" || currentUser.role === "ADMIN";
 
-  // Check if user is enrolled in a course
   const isEnrolled = (courseId) => {
     return enrolledCourses.includes(courseId);
   };
@@ -128,7 +123,6 @@ export default function Dashboard() {
   return (
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
-      {/* Enrollments Button - Top Right */}
       <div className="d-flex justify-content-end mb-3">
         <Button
           variant="primary"
@@ -137,7 +131,6 @@ export default function Dashboard() {
           {showAllCourses ? "My Courses" : "All Courses"}
         </Button>
       </div>
-      {/* Faculty-only course management section */}
       {isFaculty && (
         <>
           <h5>
@@ -196,7 +189,6 @@ export default function Dashboard() {
                     href={`/Courses/${course._id}/Home`}
                     className="wd-dashboard-course-link text-decoration-none text-dark"
                     onClick={(e) => {
-                      // Protect route - only allow navigation if enrolled
                       if (!enrolled && !isFaculty) {
                         e.preventDefault();
                         alert("Please enroll in this course first");
@@ -222,7 +214,6 @@ export default function Dashboard() {
                       </CardText>
                       <Button variant="primary"> Go </Button>
 
-                      {/* Enroll/Unenroll buttons for non-faculty users when showing all courses */}
                       {!isFaculty && showAllCourses && (
                         <>
                           {enrolled ? (
@@ -251,7 +242,6 @@ export default function Dashboard() {
                         </>
                       )}
 
-                      {/* Faculty-only buttons */}
                       {isFaculty && (
                         <>
                           <button
