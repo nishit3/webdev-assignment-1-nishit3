@@ -22,7 +22,7 @@ export default function Courses() {
   const dispatch = useDispatch();
 
   const [showAllCourses, setShowAllCourses] = useState(false);
-  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [myCourseIds, setMyCourseIds] = useState([]);
   const [course, setCourse] = useState({
     name: "New Course",
     number: "CS0000",
@@ -35,13 +35,14 @@ export default function Courses() {
 
   const fetchCourses = async () => {
     try {
+      const myCourses = await client.findMyCourses();
+      setMyCourseIds(myCourses.map(c => c._id));
+      
       if (showAllCourses) {
         const allCourses = await client.fetchAllCourses();
         dispatch(setCourses(allCourses));
       } else {
-        const myCourses = await client.findMyCourses();
         dispatch(setCourses(myCourses));
-        setEnrolledCourses(myCourses.map(c => c._id));
       }
     } catch (error) {
       console.error("Error fetching courses:", error);
@@ -58,6 +59,7 @@ export default function Courses() {
     try {
       const newCourse = await client.createCourse(course);
       dispatch(addNewCourse(newCourse));
+      setMyCourseIds([...myCourseIds, newCourse._id]);
       setCourse({
         name: "New Course",
         number: "CS0000",
@@ -67,6 +69,7 @@ export default function Courses() {
         credits: 4,
         description: "New course description",
       });
+      fetchCourses();
     } catch (error) {
       console.error("Error creating course:", error);
     }
@@ -76,6 +79,7 @@ export default function Courses() {
     try {
       await client.updateCourse(course);
       dispatch(updateCourseInState(course));
+      fetchCourses();
     } catch (error) {
       console.error("Error updating course:", error);
     }
@@ -85,6 +89,8 @@ export default function Courses() {
     try {
       await client.deleteCourse(courseId);
       dispatch(removeCourse(courseId));
+      setMyCourseIds(myCourseIds.filter(id => id !== courseId));
+      fetchCourses();
     } catch (error) {
       console.error("Error deleting course:", error);
     }
@@ -93,7 +99,7 @@ export default function Courses() {
   const handleEnroll = async (courseId) => {
     try {
       await client.enrollInCourse(currentUser._id, courseId);
-      setEnrolledCourses([...enrolledCourses, courseId]);
+      setMyCourseIds([...myCourseIds, courseId]);
       fetchCourses();
     } catch (error) {
       console.error("Error enrolling:", error);
@@ -103,7 +109,7 @@ export default function Courses() {
   const handleUnenroll = async (courseId) => {
     try {
       await client.unenrollFromCourse(currentUser._id, courseId);
-      setEnrolledCourses(enrolledCourses.filter(id => id !== courseId));
+      setMyCourseIds(myCourseIds.filter(id => id !== courseId));
       fetchCourses();
     } catch (error) {
       console.error("Error unenrolling:", error);
@@ -117,7 +123,7 @@ export default function Courses() {
   const isFaculty = currentUser.role === "FACULTY" || currentUser.role === "ADMIN";
 
   const isEnrolled = (courseId) => {
-    return enrolledCourses.includes(courseId);
+    return myCourseIds.includes(courseId);
   };
 
   return (
