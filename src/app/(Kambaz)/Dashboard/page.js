@@ -22,8 +22,8 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 
   const [showAllCourses, setShowAllCourses] = useState(false);
-  const [allCourses, setAllCourses] = useState([]);
   const [myCourseIds, setMyCourseIds] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState({
     name: "New Course",
     number: "CS0000",
@@ -35,27 +35,35 @@ export default function Dashboard() {
   });
 
   const fetchCourses = async () => {
+    setLoading(true);
     try {
-      // Always fetch enrolled courses to know which ones user is in
+      // ALWAYS fetch enrolled courses to get IDs
       const myCourses = await client.findMyCourses();
-      setMyCourseIds(myCourses.map(c => c._id));
+      const enrolledIds = myCourses.map(c => c._id);
+      
+      console.log("My enrolled course IDs:", enrolledIds);
+      setMyCourseIds(enrolledIds);
       
       if (showAllCourses) {
         // Fetch all courses for browsing
-        const all = await client.fetchAllCourses();
-        setAllCourses(all);
-        dispatch(setCourses(all));
+        const allCourses = await client.fetchAllCourses();
+        console.log("All courses:", allCourses.length);
+        dispatch(setCourses(allCourses));
       } else {
         // Show only enrolled courses
+        console.log("My courses:", myCourses.length);
         dispatch(setCourses(myCourses));
       }
     } catch (error) {
       console.error("Error fetching courses:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     if (currentUser) {
+      console.log("Current user:", currentUser.username, "Role:", currentUser.role);
       fetchCourses();
     }
   }, [currentUser, showAllCourses]);
@@ -125,10 +133,16 @@ export default function Dashboard() {
     return <div>Please sign in to view your dashboard.</div>;
   }
 
+  if (loading) {
+    return <div>Loading courses...</div>;
+  }
+
   const isFaculty = currentUser.role === "FACULTY" || currentUser.role === "ADMIN";
 
   const isEnrolled = (courseId) => {
-    return myCourseIds.includes(courseId);
+    const enrolled = myCourseIds.includes(courseId);
+    console.log(`Checking enrollment for ${courseId}:`, enrolled, "My IDs:", myCourseIds);
+    return enrolled;
   };
 
   return (
@@ -185,10 +199,18 @@ export default function Dashboard() {
         {courses.length})
       </h2>
       <hr />
+      
+      {/* Debug info */}
+      <div style={{ fontSize: '12px', color: '#666', marginBottom: '10px' }}>
+        Enrolled in {myCourseIds.length} courses: {myCourseIds.join(", ")}
+      </div>
+      
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">
           {courses.map((course) => {
             const enrolled = isEnrolled(course._id);
+            const canAccess = enrolled || isFaculty;
+            
             return (
               <Col
                 key={course._id}
@@ -200,7 +222,8 @@ export default function Dashboard() {
                     href={`/Courses/${course._id}/Home`}
                     className="wd-dashboard-course-link text-decoration-none text-dark"
                     onClick={(e) => {
-                      if (!enrolled && !isFaculty) {
+                      console.log(`Clicked course ${course._id}, enrolled: ${enrolled}, isFaculty: ${isFaculty}, canAccess: ${canAccess}`);
+                      if (!canAccess) {
                         e.preventDefault();
                         alert("Please enroll in this course first");
                       }
@@ -216,6 +239,7 @@ export default function Dashboard() {
                     <CardBody className="card-body">
                       <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
                         {course.name}
+                        {enrolled && <span style={{ color: 'green', fontSize: '12px', marginLeft: '5px' }}>✓</span>}
                       </CardTitle>
                       <CardText
                         className="wd-dashboard-course-description overflow-hidden"
