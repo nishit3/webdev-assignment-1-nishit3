@@ -16,39 +16,43 @@ export default function CoursesLayout({ children }) {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // Find current course
   const course = courses.find((c) => c._id === cid);
 
-  // Check enrollment
   useEffect(() => {
     const checkEnrollment = async () => {
       if (!currentUser) {
+        console.log("No current user, redirecting to signin");
         router.push("/Account/Signin");
         return;
       }
 
       const isFaculty = currentUser.role === "FACULTY" || currentUser.role === "ADMIN";
       
+      console.log(`Layout: Checking access to course ${cid}`);
+      console.log(`  - Current user: ${currentUser.username} (${currentUser._id})`);
+      console.log(`  - Is Faculty: ${isFaculty}`);
+      
       if (isFaculty) {
-        // Faculty can access all courses
+        console.log("  - Faculty has access to all courses");
         setIsEnrolled(true);
         setLoading(false);
         return;
       }
 
       try {
-        // Fetch user's enrolled courses to check if they have access
         const myCourses = await client.findMyCourses();
         const enrolled = myCourses.some((c) => c._id === cid);
         
-        console.log(`Course ${cid} enrollment check:`, enrolled);
+        console.log(`  - Enrolled courses: ${myCourses.map(c => c._id).join(", ")}`);
+        console.log(`  - Is enrolled in ${cid}: ${enrolled}`);
         
         if (!enrolled) {
-          console.log("Not enrolled, redirecting to dashboard");
+          console.log("  - NOT ENROLLED! Redirecting to dashboard");
           router.push("/Dashboard");
           return;
         }
         
+        console.log("  - ACCESS GRANTED!");
         setIsEnrolled(enrolled);
         setLoading(false);
       } catch (error) {
@@ -65,7 +69,7 @@ export default function CoursesLayout({ children }) {
   };
 
   if (loading) {
-    return <div>Loading course...</div>;
+    return <div style={{padding: '20px'}}>Loading course...</div>;
   }
 
   if (!isEnrolled) {

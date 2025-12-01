@@ -14,12 +14,14 @@ import {
   CardImg,
 } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import { useRouter } from "next/navigation";
 import * as client from "../Courses/client";
 
 export default function Dashboard() {
   const { courses } = useSelector((state) => state.coursesReducer);
   const { currentUser } = useSelector((state) => state.accountReducer);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [showAllCourses, setShowAllCourses] = useState(false);
   const [myCourseIds, setMyCourseIds] = useState([]);
@@ -37,7 +39,6 @@ export default function Dashboard() {
   const fetchCourses = async () => {
     setLoading(true);
     try {
-      // ALWAYS fetch enrolled courses to get IDs
       const myCourses = await client.findMyCourses();
       const enrolledIds = myCourses.map(c => c._id);
       
@@ -45,12 +46,10 @@ export default function Dashboard() {
       setMyCourseIds(enrolledIds);
       
       if (showAllCourses) {
-        // Fetch all courses for browsing
         const allCourses = await client.fetchAllCourses();
         console.log("All courses:", allCourses.length);
         dispatch(setCourses(allCourses));
       } else {
-        // Show only enrolled courses
         console.log("My courses:", myCourses.length);
         dispatch(setCourses(myCourses));
       }
@@ -129,6 +128,23 @@ export default function Dashboard() {
     }
   };
 
+  const handleCourseClick = (courseId) => {
+    const enrolled = myCourseIds.includes(courseId);
+    const isFaculty = currentUser.role === "FACULTY" || currentUser.role === "ADMIN";
+    
+    console.log(`Navigating to course ${courseId}`);
+    console.log(`  - Enrolled: ${enrolled}`);
+    console.log(`  - Is Faculty: ${isFaculty}`);
+    console.log(`  - Can Access: ${enrolled || isFaculty}`);
+    console.log(`  - Target URL: /Courses/${courseId}/Home`);
+    
+    if (enrolled || isFaculty) {
+      router.push(`/Courses/${courseId}/Home`);
+    } else {
+      alert("Please enroll in this course first");
+    }
+  };
+
   if (!currentUser) {
     return <div>Please sign in to view your dashboard.</div>;
   }
@@ -140,9 +156,7 @@ export default function Dashboard() {
   const isFaculty = currentUser.role === "FACULTY" || currentUser.role === "ADMIN";
 
   const isEnrolled = (courseId) => {
-    const enrolled = myCourseIds.includes(courseId);
-    console.log(`Checking enrollment for ${courseId}:`, enrolled, "My IDs:", myCourseIds);
-    return enrolled;
+    return myCourseIds.includes(courseId);
   };
 
   return (
@@ -200,9 +214,8 @@ export default function Dashboard() {
       </h2>
       <hr />
       
-      {/* Debug info */}
       <div style={{ fontSize: '12px', color: '#666', marginBottom: '10px' }}>
-        Enrolled in {myCourseIds.length} courses: {myCourseIds.join(", ")}
+        Debug: Enrolled in {myCourseIds.length} courses: {myCourseIds.join(", ")}
       </div>
       
       <div id="wd-dashboard-courses">
@@ -218,16 +231,9 @@ export default function Dashboard() {
                 style={{ width: "300px" }}
               >
                 <Card>
-                  <Link
-                    href={`/Courses/${course._id}/Home`}
+                  <div 
                     className="wd-dashboard-course-link text-decoration-none text-dark"
-                    onClick={(e) => {
-                      console.log(`Clicked course ${course._id}, enrolled: ${enrolled}, isFaculty: ${isFaculty}, canAccess: ${canAccess}`);
-                      if (!canAccess) {
-                        e.preventDefault();
-                        alert("Please enroll in this course first");
-                      }
-                    }}
+                    style={{ cursor: 'pointer' }}
                   >
                     <CardImg
                       src={`/images/${course.imageName || 'reactjs.png'}`}
@@ -239,7 +245,7 @@ export default function Dashboard() {
                     <CardBody className="card-body">
                       <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
                         {course.name}
-                        {enrolled && <span style={{ color: 'green', fontSize: '12px', marginLeft: '5px' }}>✓</span>}
+                        {enrolled && <span style={{ color: 'green', fontSize: '14px', marginLeft: '5px' }}>✓</span>}
                       </CardTitle>
                       <CardText
                         className="wd-dashboard-course-description overflow-hidden"
@@ -247,7 +253,12 @@ export default function Dashboard() {
                       >
                         {course.description}
                       </CardText>
-                      <Button variant="primary"> Go </Button>
+                      <Button 
+                        variant="primary"
+                        onClick={() => handleCourseClick(course._id)}
+                      >
+                        Go
+                      </Button>
 
                       {!isFaculty && showAllCourses && (
                         <>
@@ -302,7 +313,7 @@ export default function Dashboard() {
                         </>
                       )}
                     </CardBody>
-                  </Link>
+                  </div>
                 </Card>
               </Col>
             );
