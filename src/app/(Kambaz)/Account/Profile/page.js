@@ -23,11 +23,16 @@ export default function Profile() {
       setProfile(user);
     } catch (error) {
       console.error("Error fetching profile:", error);
-      setError("Failed to load profile. Please sign in again.");
-      // Wait a bit before redirecting to show error
-      setTimeout(() => {
-        router.push("/Account/Signin");
-      }, 2000);
+      
+      // If 401 (unauthorized), redirect to signin
+      if (error.response?.status === 401) {
+        setError("Please sign in to view your profile.");
+        setTimeout(() => {
+          router.push("/Account/Signin");
+        }, 1500);
+      } else {
+        setError("Failed to load profile.");
+      }
     } finally {
       setLoading(false);
     }
@@ -67,13 +72,10 @@ export default function Profile() {
     }
   };
 
+  // Only fetch profile once on mount
   useEffect(() => {
-    if (!currentUser) {
-      router.push("/Account/Signin");
-    } else {
-      fetchProfile();
-    }
-  }, [currentUser]);
+    fetchProfile();
+  }, []);
 
   if (loading) {
     return (
@@ -86,12 +88,25 @@ export default function Profile() {
     );
   }
 
-  if (!profile) {
+  if (error && !profile) {
     return (
       <div className="wd-profile-screen">
         <Alert variant="danger">
-          Failed to load profile. Redirecting to sign in...
+          {error}
         </Alert>
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <div className="wd-profile-screen">
+        <Alert variant="warning">
+          No profile data available. Please sign in.
+        </Alert>
+        <Button onClick={() => router.push("/Account/Signin")}>
+          Go to Sign In
+        </Button>
       </div>
     );
   }
