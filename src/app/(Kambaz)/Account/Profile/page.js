@@ -7,39 +7,30 @@ import { Button, FormControl, Spinner, Alert } from "react-bootstrap";
 import * as client from "../client";
 
 export default function Profile() {
+  const { currentUser } = useSelector((state) => state.accountReducer);
   const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
-  const { currentUser } = useSelector((state) => state.accountReducer);
 
-  const fetchProfile = async () => {
-    try {
-      setLoading(true);
-      setError("");
-      const user = await client.profile();
-      setProfile(user);
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-      
-      // If 401 (unauthorized), redirect to signin
-      if (error.response?.status === 401) {
-        setError("Please sign in to view your profile.");
-        setTimeout(() => {
-          router.push("/Account/Signin");
-        }, 1500);
-      } else {
-        setError("Failed to load profile.");
-      }
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    console.log("Profile page - currentUser from Redux:", currentUser);
+    
+    // If no currentUser in Redux, redirect to signin
+    if (!currentUser) {
+      console.log("No currentUser, redirecting to signin");
+      router.push("/Account/Signin");
+      return;
     }
-  };
+    
+    // Use currentUser from Redux as the profile
+    console.log("Setting profile from currentUser:", currentUser);
+    setProfile(currentUser);
+  }, [currentUser, router]);
 
   const updateProfile = async () => {
-    if (!profile._id) {
+    if (!profile || !profile._id) {
       setError("Cannot update profile: missing user ID");
       return;
     }
@@ -47,7 +38,13 @@ export default function Profile() {
     try {
       setError("");
       setSuccess("");
+      console.log("Updating profile:", profile);
+      
       const updatedUser = await client.updateUser(profile);
+      console.log("Update response:", updatedUser);
+      
+      // Update both local state and Redux
+      setProfile(profile);
       dispatch(setCurrentUser(profile));
       setSuccess("Profile updated successfully!");
       
@@ -72,12 +69,8 @@ export default function Profile() {
     }
   };
 
-  // Only fetch profile once on mount
-  useEffect(() => {
-    fetchProfile();
-  }, []);
-
-  if (loading) {
+  // Show loading while checking currentUser
+  if (!currentUser && !profile) {
     return (
       <div className="wd-profile-screen text-center mt-5">
         <Spinner animation="border" role="status">
@@ -88,23 +81,14 @@ export default function Profile() {
     );
   }
 
-  if (error && !profile) {
-    return (
-      <div className="wd-profile-screen">
-        <Alert variant="danger">
-          {error}
-        </Alert>
-      </div>
-    );
-  }
-
+  // If no profile data, show error
   if (!profile) {
     return (
       <div className="wd-profile-screen">
         <Alert variant="warning">
           No profile data available. Please sign in.
         </Alert>
-        <Button onClick={() => router.push("/Account/Signin")}>
+        <Button variant="primary" onClick={() => router.push("/Account/Signin")}>
           Go to Sign In
         </Button>
       </div>
